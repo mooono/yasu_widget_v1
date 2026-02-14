@@ -2,6 +2,14 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
 
+    <!-- Location permissions for automatic mode detection -->
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    
+    <!-- Alarm permissions for periodic updates -->
+    <uses-permission android:name="android.permission.SCHEDULE_EXACT_ALARM" />
+    <uses-permission android:name="android.permission.USE_EXACT_ALARM" />
+
     <application
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
@@ -22,6 +30,27 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        
+        <!-- Widget Receiver -->
+        <receiver
+            android:name=".widget.TransitWidgetReceiver"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
+            </intent-filter>
+            <meta-data
+                android:name="android.appwidget.provider"
+                android:resource="@xml/transit_widget_info" />
+        </receiver>
+        
+        <!-- Update Broadcast Receiver -->
+        <receiver
+            android:name=".infra.scheduler.UpdateBroadcastReceiver"
+            android:exported="false">
+            <intent-filter>
+                <action android:name="com.example.yasuwidget.ACTION_UPDATE_WIDGET" />
+            </intent-filter>
+        </receiver>
     </application>
 
 </manifest>
