@@ -27,12 +27,27 @@ fun WidgetContent(uiState: WidgetUiState) {
             .padding(12.dp)
             .background(ColorProvider(android.graphics.Color.WHITE))
     ) {
-        // Header
+        // Header with station switching for train modes
         Row(
             modifier = GlanceModifier.fillMaxWidth(),
             horizontalAlignment = Alignment.Horizontal.CenterHorizontally,
             verticalAlignment = Alignment.Vertical.CenterVertically
         ) {
+            // Show previous station button for train modes (UI-REQ-002)
+            if (uiState.mode != DisplayMode.BUS_ONLY) {
+                Text(
+                    text = "◀",
+                    style = TextStyle(
+                        fontSize = 14.sp,
+                        color = ColorProvider(android.graphics.Color.BLUE)
+                    ),
+                    modifier = GlanceModifier.clickable(
+                        actionRunCallback<SwitchStationAction>()
+                    )
+                )
+                Spacer(modifier = GlanceModifier.width(4.dp))
+            }
+            
             Text(
                 text = uiState.headerTitle,
                 style = TextStyle(
@@ -40,6 +55,22 @@ fun WidgetContent(uiState: WidgetUiState) {
                     fontWeight = FontWeight.Bold
                 )
             )
+            
+            // Show next station button for train modes (UI-REQ-002)
+            if (uiState.mode != DisplayMode.BUS_ONLY) {
+                Spacer(modifier = GlanceModifier.width(4.dp))
+                Text(
+                    text = "▶",
+                    style = TextStyle(
+                        fontSize = 14.sp,
+                        color = ColorProvider(android.graphics.Color.BLUE)
+                    ),
+                    modifier = GlanceModifier.clickable(
+                        actionRunCallback<SwitchStationAction>()
+                    )
+                )
+            }
+            
             Spacer(modifier = GlanceModifier.width(8.dp))
             Text(
                 text = "更新 ${uiState.lastUpdatedAtText}",
