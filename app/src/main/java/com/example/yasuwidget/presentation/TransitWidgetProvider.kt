@@ -7,6 +7,8 @@ import android.content.ComponentName
 import android.content.Context
 import android.content.Intent
 import android.util.Log
+import android.widget.RemoteViews
+import com.example.yasuwidget.R
 import com.example.yasuwidget.application.RefreshWidgetUseCase
 import com.example.yasuwidget.infrastructure.location.LocationRepository
 import com.example.yasuwidget.infrastructure.scheduler.UpdateScheduler
@@ -40,6 +42,13 @@ class TransitWidgetProvider : AppWidgetProvider() {
         appWidgetManager: AppWidgetManager,
         appWidgetIds: IntArray
     ) {
+        // 即座に初期レイアウトを設定（Null RemoteViews 防止）
+        for (id in appWidgetIds) {
+            val views = RemoteViews(context.packageName, R.layout.widget_transit)
+            views.setTextViewText(R.id.text_header_title, "読込中…")
+            setupClickListeners(context, views)
+            appWidgetManager.updateAppWidget(id, views)
+        }
         performUpdate(context)
     }
 

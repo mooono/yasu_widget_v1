@@ -2,11 +2,12 @@
 """
 バス時刻表JSON生成スクリプト
 
-手動入力した時刻データからbus_timetable.jsonを生成する。
-路線: 野洲駅 ⇄ 村田製作所（野洲）（野洲生和村田線）
+スクレイピング結果のJSONファイルから bus_timetable.json を生成する。
+路線: 野洲駅 ⇄ 村田製作所（野洲）
 
 使い方:
-  1. 下記の時刻リストを新しいダイヤに合わせて更新する
+  1. scrape_bus_yasu.py と scrape_bus_murata.py を実行して
+     /tmp/bus_yasu_scraped.json と /tmp/bus_murata_scraped.json を生成
   2. python3 generate_bus.py を実行
   3. 出力を app/src/main/assets/bus_timetable.json にコピー
 
@@ -14,146 +15,129 @@
   /tmp/bus_timetable_v2.json
 """
 import json
+import sys
 
 OUTPUT_PATH = '/tmp/bus_timetable_v2.json'
-
-# ============================================================
-# to_murata（野洲駅 → 村田製作所方面）
-# ============================================================
-
-# 野洲駅のりば2（南口）平日
-minami_weekday = [
-    '06:30', '06:53',
-    '07:08', '07:10', '07:15', '07:25', '07:32', '07:36', '07:38', '07:40', '07:42', '07:50', '07:52',
-    '08:00', '08:05', '08:17', '08:19', '08:22', '08:25', '08:30', '08:35', '08:38', '08:41', '08:48', '08:55',
-    '09:00', '09:05', '09:15', '09:20', '09:27', '09:35', '09:38',
-    '10:05', '10:10', '10:31', '10:40', '10:46',
-    '11:03', '11:05', '11:10', '11:32', '11:40', '11:48',
-    '12:05', '12:28', '12:40', '12:59',
-    '13:05', '13:32', '13:40', '13:59',
-    '14:05', '14:32', '14:40', '14:59',
-    '15:05', '15:29', '15:40', '15:46',
-    '16:03', '16:05', '16:32', '16:46', '16:53',
-    '17:03', '17:10', '17:30', '17:33',
-    '18:05', '18:15', '18:18', '18:35', '18:47', '18:50',
-    '19:05', '19:08', '19:21', '19:47', '19:50',
-    '20:10', '20:20', '20:40',
-]
-
-# 野洲駅北口のりば1 平日（専=村田製作所行のみ）
-kita_weekday = [
-    '06:40', '06:52',
-    '07:25', '07:32', '07:38', '07:42', '07:55',
-    '08:02', '08:10', '08:13', '08:23', '08:27', '08:36', '08:41',
-    '09:20', '09:29',
-    '12:32',
-]
-
-# 野洲駅のりば2（南口）休日
-minami_holiday = [
-    '07:30', '07:40', '07:55',
-    '08:05', '08:15', '08:20', '08:35', '08:40', '08:57',
-    '09:05', '09:25', '09:35', '09:40',
-    '10:05', '10:35', '10:40',
-    '11:05', '11:31', '11:40', '11:50',
-    '12:05', '12:35', '12:40',
-    '13:05', '13:40',
-    '14:00', '14:05', '14:40',
-    '15:00', '15:05', '15:40',
-    '16:05', '16:10', '16:40',
-    '17:05', '17:10',
-    '18:25', '18:30',
-    '19:10', '19:20',
-    '20:10', '20:50',
-]
-
-# 野洲駅北口 休日（なし）
-kita_holiday = []
+YASU_SCRAPED = '/tmp/bus_yasu_scraped.json'
+MURATA_SCRAPED = '/tmp/bus_murata_scraped.json'
 
 
-# ============================================================
-# to_yasu（村田製作所 → 野洲駅方面）
-# ============================================================
-
-murata_weekday_all = [
-    ('07:00', '野洲駅'), ('07:30', '野洲駅'),
-    ('08:30', '野洲駅'), ('08:56', '野洲駅'),
-    ('09:28', '野洲駅'), ('09:42', '野洲駅'),
-    ('10:00', '野洲駅'), ('10:28', '野洲駅'), ('10:43', '野洲駅'), ('10:58', '野洲駅'),
-    ('11:15', '野洲駅'), ('11:57', '野洲駅'),
-    ('12:20', '野洲駅'), ('12:22', '野洲駅'), ('12:43', '野洲駅'),
-    ('13:00', '野洲駅'), ('13:52', '野洲駅'),
-    ('14:22', '野洲駅'), ('14:52', '野洲駅'),
-    ('15:22', '野洲駅'), ('15:33', '野洲駅'), ('15:50', '野洲駅'),
-    ('16:22', '野洲駅'), ('16:34', '野洲駅'), ('16:50', '野洲駅'),
-    ('17:10', '野洲駅'), ('17:15', '野洲駅'), ('17:22', '野洲駅'), ('17:30', '野洲駅'),
-    ('17:35', '野洲駅'), ('17:39', '野洲駅'), ('17:43', '野洲駅'), ('17:50', '野洲駅'), ('17:55', '野洲駅'),
-    ('18:02', '野洲駅'), ('18:05', '野洲駅'), ('18:10', '野洲駅'), ('18:15', '野洲駅'),
-    ('18:25', '野洲駅'), ('18:35', '野洲駅'), ('18:39', '野洲駅'), ('18:45', '野洲駅'), ('18:55', '野洲駅'),
-    ('19:00', '野洲駅'), ('19:11', '野洲駅'), ('19:18', '野洲駅'), ('19:26', '野洲駅'),
-    ('19:30', '野洲駅'), ('19:45', '野洲駅'), ('19:53', '野洲駅'),
-    ('20:00', '野洲駅'), ('20:10', '野洲駅'), ('20:20', '野洲駅'), ('20:26', '野洲駅'),
-    ('20:38', '野洲駅'), ('20:49', '野洲駅'),
-    ('21:02', '野洲駅'), ('21:13', '野洲駅'), ('21:30', '野洲駅'),
-]
-
-murata_holiday = [
-    ('08:16', '野洲駅'), ('09:15', '野洲駅'), ('09:30', '野洲駅'),
-    ('10:00', '野洲駅'), ('11:00', '野洲駅'), ('12:00', '野洲駅'),
-    ('13:15', '野洲駅'), ('15:30', '野洲駅'), ('16:30', '野洲駅'),
-    ('17:30', '野洲駅'), ('18:45', '野洲駅'),
-]
+def load_scraped(path):
+    """スクレイピング結果のJSONを読み込む"""
+    try:
+        with open(path) as f:
+            return json.load(f)
+    except FileNotFoundError:
+        print(f"ERROR: {path} not found. Run the scraper first.")
+        sys.exit(1)
 
 
-# ============================================================
-# JSON生成
-# ============================================================
-
-def build_to_murata(minami_times, kita_times):
-    """南口・北口の便をマージして時刻順にソートする"""
+def merge_routes_to_entries(routes, day_type):
+    """
+    複数のroute結果を経由情報付きの time entries にマージして時刻順ソートする。
+    routes: list of {destination, via, weekday, holiday}
+    day_type: 'weekday' or 'holiday'
+    returns: list of {time, destination, via} sorted by time
+    """
     entries = []
-    for t in minami_times:
-        entries.append({'time': t, 'destination': '村田製作所', '_sort': t + '_0'})
-    for t in kita_times:
-        entries.append({'time': t, 'destination': '村田製作所(北口発)', '_sort': t + '_1'})
-    entries.sort(key=lambda e: e['_sort'])
-    return [{'time': e['time'], 'destination': e['destination']} for e in entries]
+    for route in routes:
+        dest = route["destination"]
+        via = route.get("via", "")
+        times = route.get(day_type, [])
+        for t in times:
+            entries.append({
+                "time": t,
+                "destination": dest,
+                "via": via,
+                "_sort": t + "_" + dest,
+            })
+
+    entries.sort(key=lambda e: e["_sort"])
+    return [{"time": e["time"], "destination": e["destination"], "via": e["via"]} for e in entries]
+
+
+def build_to_murata(yasu_data):
+    """
+    野洲駅発 → 村田製作所方面のデータを構築する。
+    南口のりば2 と 北口のりば1 のスクレイピング結果をマージする。
+    """
+    routes = []
+
+    # 南口のりば2（destination = "村田製作所"）
+    for r in yasu_data.get("南口_のりば2", []):
+        routes.append({
+            "destination": "村田製作所",
+            "via": r["via"],
+            "weekday": r["weekday"],
+            "holiday": r["holiday"],
+        })
+
+    # 北口のりば1（destination = "村田製作所(北口発)"）
+    for r in yasu_data.get("北口_のりば1", []):
+        routes.append({
+            "destination": "村田製作所(北口発)",
+            "via": r["via"],
+            "weekday": r["weekday"],
+            "holiday": r["holiday"],
+        })
+
+    return {
+        "weekday": merge_routes_to_entries(routes, "weekday"),
+        "holiday": merge_routes_to_entries(routes, "holiday"),
+    }
+
+
+def build_to_yasu(murata_data):
+    """
+    村田製作所発 → 野洲駅方面のデータを構築する。
+    """
+    routes = murata_data.get("routes", [])
+    return {
+        "weekday": merge_routes_to_entries(routes, "weekday"),
+        "holiday": merge_routes_to_entries(routes, "holiday"),
+    }
 
 
 def build_bus_json():
+    yasu_data = load_scraped(YASU_SCRAPED)
+    murata_data = load_scraped(MURATA_SCRAPED)
+
+    to_murata = build_to_murata(yasu_data)
+    to_yasu = build_to_yasu(murata_data)
+
     bus_json = {
-        'route_name': '野洲駅 ⇄ 村田製作所（野洲）',
-        'to_yasu': {
-            'weekday': [{'time': t, 'destination': d} for t, d in murata_weekday_all],
-            'holiday': [{'time': t, 'destination': d} for t, d in murata_holiday],
-        },
-        'to_murata': {
-            'weekday': build_to_murata(minami_weekday, kita_weekday),
-            'holiday': build_to_murata(minami_holiday, kita_holiday),
-        },
-        'notes': [
-            '村田製作所休業日は運休の可能性があります（v1は休業日判定しません）',
-            '(北口発) = 野洲駅北口のりば1から発車',
-            'それ以外 = 野洲駅のりば2（南口）から発車',
+        "route_name": "野洲駅 ⇄ 村田製作所（野洲）",
+        "to_yasu": to_yasu,
+        "to_murata": to_murata,
+        "notes": [
+            "村田製作所休業日は運休の可能性があります（v1は休業日判定しません）",
+            "(北口発) = 野洲駅北口のりば1から発車",
+            "それ以外 = 野洲駅のりば2（南口）から発車",
+            "via = 経由地（三ツ坂/生和神社/野洲中学校/西ゲート）",
             # ↓ ダイヤ改正時にここを更新する
-            '2026年2月時点のダイヤに基づきます'
-        ]
+            "2026年2月時点のダイヤに基づきます",
+        ],
     }
 
-    with open(OUTPUT_PATH, 'w') as f:
+    with open(OUTPUT_PATH, "w") as f:
         json.dump(bus_json, f, ensure_ascii=False, indent=2)
 
     # サマリー
-    for direction in ['to_murata', 'to_yasu']:
-        for day in ['weekday', 'holiday']:
+    for direction in ["to_murata", "to_yasu"]:
+        for day in ["weekday", "holiday"]:
             entries = bus_json[direction][day]
             total = len(entries)
-            kita = sum(1 for e in entries if '北口' in e.get('destination', ''))
-            print(f"{direction}/{day}: {total} entries ({kita} from 北口)")
+            kita = sum(1 for e in entries if "北口" in e.get("destination", ""))
+            vias = {}
+            for e in entries:
+                v = e.get("via", "")
+                vias[v] = vias.get(v, 0) + 1
+            via_str = ", ".join(f"{k}:{v}" for k, v in sorted(vias.items()))
+            print(f"{direction}/{day}: {total} entries ({kita} 北口) [{via_str}]")
 
     print(f"\nWritten to {OUTPUT_PATH}")
     print(f"デプロイ: cp {OUTPUT_PATH} app/src/main/assets/bus_timetable.json")
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     build_bus_json()

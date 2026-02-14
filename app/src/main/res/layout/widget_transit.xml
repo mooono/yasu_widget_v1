@@ -1,34 +1,33 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!--
   Widget レイアウト（UI-REQ-001/003）
-  表示モードに応じてセクションの表示/非表示を切り替える
+  電光掲示板風デザイン: 上り(左) / 下り(右) の2カラム、1列車1行表示
 -->
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/widget_root"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#E0222222"
+    android:background="#E0111111"
     android:orientation="vertical"
     android:padding="8dp">
 
-    <!-- ヘッダー: 駅名/エリア名 + 路線名 + 更新時刻 + 更新ボタン -->
+    <!-- ヘッダー: 駅名 + 路線名 + 更新時刻 + 更新ボタン -->
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="4dp">
 
-        <!-- 駅名/エリア表示 -->
         <TextView
             android:id="@+id/text_header_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentStart="true"
+            android:layout_centerVertical="true"
             android:text="野洲"
             android:textColor="#FFFFFFFF"
-            android:textSize="14sp"
+            android:textSize="16sp"
             android:textStyle="bold" />
 
-        <!-- 路線名 -->
         <TextView
             android:id="@+id/text_line_name"
             android:layout_width="wrap_content"
@@ -36,23 +35,21 @@
             android:layout_toEndOf="@id/text_header_title"
             android:layout_marginStart="6dp"
             android:layout_centerVertical="true"
-            android:text="東海道線"
+            android:text="琵琶湖線"
             android:textColor="#AAFFFFFF"
-            android:textSize="11sp" />
+            android:textSize="12sp" />
 
-        <!-- 更新時刻 -->
         <TextView
             android:id="@+id/text_last_updated"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_toStartOf="@id/btn_refresh"
             android:layout_centerVertical="true"
+            android:layout_marginEnd="4dp"
             android:text="更新 07:01"
             android:textColor="#AAFFFFFF"
-            android:textSize="10sp"
-            android:layout_marginEnd="4dp" />
+            android:textSize="11sp" />
 
-        <!-- 手動更新ボタン（UI-REQ-003 / SYS-REQ-044） -->
         <ImageView
             android:id="@+id/btn_refresh"
             android:layout_width="24dp"
@@ -64,103 +61,517 @@
             android:background="?android:attr/selectableItemBackgroundBorderless" />
     </RelativeLayout>
 
-    <!-- ステータスメッセージ（SYS-REQ-042/043） -->
+    <!-- ステータスメッセージ -->
     <TextView
         android:id="@+id/text_status_message"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:textColor="#FFFFAA00"
-        android:textSize="11sp"
+        android:textSize="12sp"
         android:visibility="gone" />
 
-    <!-- 電車セクション（TRAIN_ONLY / TRAIN_AND_BUS） -->
+    <!-- 電車セクション: 左右2カラム -->
     <LinearLayout
         android:id="@+id/section_train"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:layout_marginBottom="2dp">
+        android:orientation="horizontal"
+        android:baselineAligned="false">
 
-        <!-- 上り -->
+        <!-- 左カラム: ↑ 上り（米原方面） -->
         <LinearLayout
-            android:layout_width="match_parent"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:gravity="center_vertical">
+            android:layout_weight="1"
+            android:orientation="vertical"
+            android:layout_marginEnd="3dp">
 
             <TextView
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="↑"
+                android:text="↑ 上り"
                 android:textColor="#FF88CCFF"
-                android:textSize="13sp"
-                android:layout_marginEnd="4dp" />
+                android:textSize="12sp"
+                android:textStyle="bold"
+                android:layout_marginBottom="2dp" />
 
-            <TextView
-                android:id="@+id/text_train_up"
-                android:layout_width="0dp"
+            <!-- 上り 1本目 -->
+            <LinearLayout
+                android:id="@+id/row_train_up1"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:textColor="#FFFFFFFF"
-                android:textSize="13sp"
-                android:singleLine="true"
-                android:ellipsize="end" />
+                android:orientation="horizontal"
+                android:gravity="center_vertical"
+                android:layout_marginBottom="2dp">
+
+                <TextView
+                    android:id="@+id/train_up1_type"
+                    android:layout_width="36dp"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/badge_local"
+                    android:textColor="#FFFFFFFF"
+                    android:textSize="10sp"
+                    android:textStyle="bold"
+                    android:gravity="center"
+                    android:layout_marginEnd="3dp" />
+
+                <TextView
+                    android:id="@+id/train_up1_info"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:textColor="#FFFFFFFF"
+                    android:textSize="14sp"
+                    android:singleLine="true"
+                    android:ellipsize="end" />
+            </LinearLayout>
+
+            <!-- 上り 2本目 -->
+            <LinearLayout
+                android:id="@+id/row_train_up2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center_vertical"
+                android:layout_marginBottom="2dp">
+
+                <TextView
+                    android:id="@+id/train_up2_type"
+                    android:layout_width="36dp"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/badge_local"
+                    android:textColor="#FFFFFFFF"
+                    android:textSize="10sp"
+                    android:textStyle="bold"
+                    android:gravity="center"
+                    android:layout_marginEnd="3dp" />
+
+                <TextView
+                    android:id="@+id/train_up2_info"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:textColor="#FFFFFFFF"
+                    android:textSize="14sp"
+                    android:singleLine="true"
+                    android:ellipsize="end" />
+            </LinearLayout>
+
+            <!-- 上り 3本目 -->
+            <LinearLayout
+                android:id="@+id/row_train_up3"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center_vertical">
+
+                <TextView
+                    android:id="@+id/train_up3_type"
+                    android:layout_width="36dp"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/badge_local"
+                    android:textColor="#FFFFFFFF"
+                    android:textSize="10sp"
+                    android:textStyle="bold"
+                    android:gravity="center"
+                    android:layout_marginEnd="3dp" />
+
+                <TextView
+                    android:id="@+id/train_up3_info"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:textColor="#FFFFFFFF"
+                    android:textSize="14sp"
+                    android:singleLine="true"
+                    android:ellipsize="end" />
+            </LinearLayout>
         </LinearLayout>
 
-        <!-- 下り -->
+        <!-- 中央の区切り線 -->
+        <TextView
+            android:layout_width="1dp"
+            android:layout_height="match_parent"
+            android:background="#33FFFFFF"
+            android:layout_marginTop="2dp"
+            android:layout_marginBottom="2dp" />
+
+        <!-- 右カラム: ↓ 下り（京都方面） -->
         <LinearLayout
-            android:layout_width="match_parent"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:gravity="center_vertical">
+            android:layout_weight="1"
+            android:orientation="vertical"
+            android:layout_marginStart="3dp">
 
             <TextView
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="↓"
+                android:text="↓ 下り"
                 android:textColor="#FFFFAA88"
-                android:textSize="13sp"
-                android:layout_marginEnd="4dp" />
+                android:textSize="12sp"
+                android:textStyle="bold"
+                android:layout_marginBottom="2dp" />
 
-            <TextView
-                android:id="@+id/text_train_down"
-                android:layout_width="0dp"
+            <!-- 下り 1本目 -->
+            <LinearLayout
+                android:id="@+id/row_train_down1"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:textColor="#FFFFFFFF"
-                android:textSize="13sp"
-                android:singleLine="true"
-                android:ellipsize="end" />
+                android:orientation="horizontal"
+                android:gravity="center_vertical"
+                android:layout_marginBottom="2dp">
+
+                <TextView
+                    android:id="@+id/train_down1_type"
+                    android:layout_width="36dp"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/badge_rapid"
+                    android:textColor="#FFFFFFFF"
+                    android:textSize="10sp"
+                    android:textStyle="bold"
+                    android:gravity="center"
+                    android:layout_marginEnd="3dp" />
+
+                <TextView
+                    android:id="@+id/train_down1_info"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:textColor="#FFFFFFFF"
+                    android:textSize="14sp"
+                    android:singleLine="true"
+                    android:ellipsize="end" />
+            </LinearLayout>
+
+            <!-- 下り 2本目 -->
+            <LinearLayout
+                android:id="@+id/row_train_down2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center_vertical"
+                android:layout_marginBottom="2dp">
+
+                <TextView
+                    android:id="@+id/train_down2_type"
+                    android:layout_width="36dp"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/badge_special_rapid"
+                    android:textColor="#FFFFFFFF"
+                    android:textSize="10sp"
+                    android:textStyle="bold"
+                    android:gravity="center"
+                    android:layout_marginEnd="3dp" />
+
+                <TextView
+                    android:id="@+id/train_down2_info"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:textColor="#FFFFFFFF"
+                    android:textSize="14sp"
+                    android:singleLine="true"
+                    android:ellipsize="end" />
+            </LinearLayout>
+
+            <!-- 下り 3本目 -->
+            <LinearLayout
+                android:id="@+id/row_train_down3"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center_vertical">
+
+                <TextView
+                    android:id="@+id/train_down3_type"
+                    android:layout_width="36dp"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/badge_local"
+                    android:textColor="#FFFFFFFF"
+                    android:textSize="10sp"
+                    android:textStyle="bold"
+                    android:gravity="center"
+                    android:layout_marginEnd="3dp" />
+
+                <TextView
+                    android:id="@+id/train_down3_info"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:textColor="#FFFFFFFF"
+                    android:textSize="14sp"
+                    android:singleLine="true"
+                    android:ellipsize="end" />
+            </LinearLayout>
         </LinearLayout>
     </LinearLayout>
 
-    <!-- バスセクション（BUS_ONLY / TRAIN_AND_BUS） -->
+    <!-- バスセクション -->
     <LinearLayout
         android:id="@+id/section_bus"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:gravity="center_vertical"
-        android:layout_marginTop="2dp">
+        android:orientation="vertical"
+        android:layout_marginTop="10dp">
 
-        <TextView
-            android:id="@+id/text_bus_label"
-            android:layout_width="wrap_content"
+        <!-- バスヘッダー: バス停名 + 路線名 -->
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Bus → 村田"
-            android:textColor="#FF88FF88"
-            android:textSize="12sp"
-            android:layout_marginEnd="6dp" />
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            android:layout_marginBottom="4dp">
 
-        <TextView
-            android:id="@+id/text_bus_departures"
+            <TextView
+                android:id="@+id/text_bus_stop_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="野洲駅"
+                android:textColor="#FFFFFFFF"
+                android:textSize="16sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/text_bus_line_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="6dp"
+                android:text="近江鉄道バス"
+                android:textColor="#AAFFFFFF"
+                android:textSize="12sp" />
+        </LinearLayout>
+
+        <!-- 2カラム: 野洲駅系 / 北口系 -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+        <!-- 左カラム: 野洲駅発/行 -->
+        <LinearLayout
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:textColor="#FFFFFFFF"
-            android:textSize="13sp"
-            android:singleLine="true"
-            android:ellipsize="end" />
+            android:orientation="vertical"
+            android:layout_marginEnd="2dp">
+
+            <TextView
+                android:id="@+id/text_bus_yasu_label"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="野洲駅発"
+                android:textColor="#FF88FF88"
+                android:textSize="12sp"
+                android:textStyle="bold"
+                android:layout_marginBottom="2dp" />
+
+            <!-- 野洲駅系 1本目 -->
+            <LinearLayout
+                android:id="@+id/row_bus_yasu1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center_vertical"
+                android:layout_marginBottom="2dp">
+
+                <TextView
+                    android:id="@+id/bus_yasu1_time"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="39dp"
+                    android:textColor="#FFFFFFFF"
+                    android:textSize="14sp"
+                    android:singleLine="true" />
+
+                <TextView
+                    android:id="@+id/bus_yasu1_via"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:layout_marginStart="4dp"
+                    android:textColor="#FFFFFFFF"
+                    android:textSize="14sp"
+                    android:singleLine="true"
+                    android:ellipsize="end" />
+            </LinearLayout>
+
+            <!-- 野洲駅系 2本目 -->
+            <LinearLayout
+                android:id="@+id/row_bus_yasu2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center_vertical"
+                android:layout_marginBottom="2dp">
+
+                <TextView
+                    android:id="@+id/bus_yasu2_time"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="39dp"
+                    android:textColor="#FFFFFFFF"
+                    android:textSize="14sp"
+                    android:singleLine="true" />
+
+                <TextView
+                    android:id="@+id/bus_yasu2_via"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:layout_marginStart="4dp"
+                    android:textColor="#FFFFFFFF"
+                    android:textSize="14sp"
+                    android:singleLine="true"
+                    android:ellipsize="end" />
+            </LinearLayout>
+
+            <!-- 野洲駅系 3本目 -->
+            <LinearLayout
+                android:id="@+id/row_bus_yasu3"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center_vertical">
+
+                <TextView
+                    android:id="@+id/bus_yasu3_time"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="39dp"
+                    android:textColor="#FFFFFFFF"
+                    android:textSize="14sp"
+                    android:singleLine="true" />
+
+                <TextView
+                    android:id="@+id/bus_yasu3_via"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:layout_marginStart="4dp"
+                    android:textColor="#FFFFFFFF"
+                    android:textSize="14sp"
+                    android:singleLine="true"
+                    android:ellipsize="end" />
+            </LinearLayout>
+        </LinearLayout>
+
+        <!-- 区切り線 -->
+        <TextView
+            android:layout_width="1dp"
+            android:layout_height="match_parent"
+            android:background="#33FFFFFF"
+            android:layout_marginTop="2dp"
+            android:layout_marginBottom="2dp" />
+
+        <!-- 右カラム: 北口発/行 -->
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="vertical"
+            android:layout_marginStart="3dp">
+
+            <TextView
+                android:id="@+id/text_bus_kita_label"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="北口発"
+                android:textColor="#FF88FF88"
+                android:textSize="12sp"
+                android:textStyle="bold"
+                android:layout_marginBottom="2dp" />
+
+            <!-- 北口系 1本目 -->
+            <LinearLayout
+                android:id="@+id/row_bus_kita1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center_vertical"
+                android:layout_marginBottom="2dp">
+
+                <TextView
+                    android:id="@+id/bus_kita1_time"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="39dp"
+                    android:textColor="#FFFFFFFF"
+                    android:textSize="14sp"
+                    android:singleLine="true" />
+
+                <TextView
+                    android:id="@+id/bus_kita1_via"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:layout_marginStart="4dp"
+                    android:textColor="#FFFFFFFF"
+                    android:textSize="14sp"
+                    android:singleLine="true"
+                    android:ellipsize="end" />
+            </LinearLayout>
+
+            <!-- 北口系 2本目 -->
+            <LinearLayout
+                android:id="@+id/row_bus_kita2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center_vertical"
+                android:layout_marginBottom="2dp">
+
+                <TextView
+                    android:id="@+id/bus_kita2_time"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="39dp"
+                    android:textColor="#FFFFFFFF"
+                    android:textSize="14sp"
+                    android:singleLine="true" />
+
+                <TextView
+                    android:id="@+id/bus_kita2_via"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:layout_marginStart="4dp"
+                    android:textColor="#FFFFFFFF"
+                    android:textSize="14sp"
+                    android:singleLine="true"
+                    android:ellipsize="end" />
+            </LinearLayout>
+
+            <!-- 北口系 3本目 -->
+            <LinearLayout
+                android:id="@+id/row_bus_kita3"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center_vertical">
+
+                <TextView
+                    android:id="@+id/bus_kita3_time"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="39dp"
+                    android:textColor="#FFFFFFFF"
+                    android:textSize="14sp"
+                    android:singleLine="true" />
+
+                <TextView
+                    android:id="@+id/bus_kita3_via"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:layout_marginStart="4dp"
+                    android:textColor="#FFFFFFFF"
+                    android:textSize="14sp"
+                    android:singleLine="true"
+                    android:ellipsize="end" />
+            </LinearLayout>
+        </LinearLayout>
+        </LinearLayout>
     </LinearLayout>
 
 </LinearLayout>

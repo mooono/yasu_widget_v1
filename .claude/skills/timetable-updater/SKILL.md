@@ -73,18 +73,32 @@ cp /tmp/train_timetable_with_type.json app/src/main/assets/train_timetable.json
 
 ## バス時刻表の更新手順
 
-### Step 1: 時刻表データの入手
+### Step 1: スクレイピング実行
 
-近江バスの NAVITIME ページ等から時刻表を確認する。
-路線: **野洲駅 ⇄ 村田製作所（野洲）**（野洲生和村田線）
+NAVITIMEのページからPlaywrightで時刻表を取得する。
+チェックボックス操作で村田製作所行の便のみをフィルタリングし、経由別に取得する。
 
-### Step 2: スクリプトの更新と実行
+```bash
+# 野洲駅発（南口のりば2 + 北口のりば1）→ 村田製作所方面
+python3 .claude/skills/timetable-updater/scripts/scrape_bus_yasu.py
+# 出力: /tmp/bus_yasu_scraped.json
 
-`scripts/generate_bus.py` 内のPythonリスト（時刻データ）を新しいダイヤに合わせて手動更新する。
+# 村田製作所発 → 野洲駅方面
+python3 .claude/skills/timetable-updater/scripts/scrape_bus_murata.py
+# 出力: /tmp/bus_murata_scraped.json
+```
 
-乗り場に注意:
-- **野洲駅のりば2（南口）**: メイン乗り場 → destination: `"村田製作所"`
-- **野洲駅北口のりば1**: 一部便のみ → destination: `"村田製作所(北口発)"`
+対象URL:
+- **野洲駅のりば2（南口）**: `busstop=00480294&course-sequence=0007900384-1`
+- **野洲駅北口のりば1**: `busstop=00480358&course-sequence=0007900402-1`
+- **村田製作所**: `busstop=00480508&course-sequence=0007900395-1`
+
+野洲駅のりば2には花緑総合・アウトレット線等の他路線が含まれるため、
+チェックボックスで村田製作所行のみを自動検出してフィルタリングする。
+
+### Step 2: JSON生成
+
+スクレイピング結果からbus_timetable.jsonを生成する。
 
 ```bash
 python3 .claude/skills/timetable-updater/scripts/generate_bus.py
@@ -135,7 +149,7 @@ cp /tmp/bus_timetable_v2.json app/src/main/assets/bus_timetable.json
 }
 ```
 
-各エントリ: `{ "time": "HH:mm", "destination": "..." }`
+各エントリ: `{ "time": "HH:mm", "destination": "...", "via": "..." }`
 
 ## 対象15駅
 

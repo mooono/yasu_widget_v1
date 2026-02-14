@@ -91,7 +91,8 @@ object TimetableParser {
             val time = parseTime(timeStr)
             val destination = obj.optString("destination", "")
             val trainType = obj.optString("type", "")
-            departures.add(Departure(time = time, destination = destination, trainType = trainType))
+            val via = obj.optString("via", "")
+            departures.add(Departure(time = time, destination = destination, trainType = trainType, via = via))
         }
         return departures
     }

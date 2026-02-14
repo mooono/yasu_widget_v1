@@ -40,13 +40,13 @@
   "route_name": "野洲駅 ⇄ 村田製作所（野洲）",
   "to_yasu": {
     "weekday": [
-      { "time": "07:10", "destination": "野洲駅" }
+      { "time": "07:00", "destination": "野洲駅", "via": "三ツ坂" }
     ],
     "holiday": []
   },
   "to_murata": {
     "weekday": [
-      { "time": "07:30", "destination": "村田（野洲）" }
+      { "time": "06:30", "destination": "村田製作所", "via": "三ツ坂" }
     ],
     "holiday": []
   },
@@ -55,3 +55,5 @@
   ]
 }
 ```
+
+- `via`: 経由地（三ツ坂/生和神社/野洲中学校/西ゲート）

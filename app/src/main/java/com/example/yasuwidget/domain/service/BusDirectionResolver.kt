@@ -7,16 +7,15 @@ import com.example.yasuwidget.domain.model.GeoPoint
 /**
  * バス方向判定（SYS-REQ-020/021）
  *
- * - 村田に近い → 野洲駅方面 (TO_YASU)
- * - それ以外 → 村田方面 (TO_MURATA)
+ * - 村田半径以内 → 村田発（TO_YASU: 村田→野洲駅方面）
+ * - それ以外 → 野洲駅発（TO_MURATA: 野洲駅→村田方面）
  */
 object BusDirectionResolver {
 
     fun resolve(currentLocation: GeoPoint): BusDirection {
         val distToMurata = GeoUtils.distanceMeters(currentLocation, LocationConstants.MURATA_YASU)
-        val distToYasu = GeoUtils.distanceMeters(currentLocation, LocationConstants.YASU_STATION)
 
-        return if (distToMurata < distToYasu) {
+        return if (distToMurata <= LocationConstants.MURATA_RADIUS_METERS) {
             BusDirection.TO_YASU
         } else {
             BusDirection.TO_MURATA

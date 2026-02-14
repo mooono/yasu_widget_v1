@@ -8,5 +8,6 @@ import java.time.LocalTime
 data class Departure(
     val time: LocalTime,
     val destination: String,
-    val trainType: String = ""
+    val trainType: String = "",
+    val via: String = ""
 )

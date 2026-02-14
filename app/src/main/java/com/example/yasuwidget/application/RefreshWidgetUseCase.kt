@@ -30,8 +30,8 @@ class RefreshWidgetUseCase(
 ) {
 
     companion object {
-        private const val TRAIN_COUNT_PER_DIRECTION = 2
-        private const val BUS_COUNT = 2
+        private const val TRAIN_COUNT_PER_DIRECTION = 3
+        private const val BUS_COUNT = 3
         private val TIME_DISPLAY_FORMATTER = DateTimeFormatter.ofPattern("HH:mm")
     }
 
@@ -104,16 +104,14 @@ class RefreshWidgetUseCase(
             }
         }
 
-        // 5. バスセクション構築
+        // 5. バスセクション構築（全モードで常に表示）
         var busSection: BusSection? = null
-        if (displayMode == DisplayMode.BUS_ONLY || displayMode == DisplayMode.TRAIN_AND_BUS) {
-            if (busTimetable == null) {
-                dataError = true
-            } else {
-                busSection = buildBusSection(
-                    busTimetable, currentLocation, serviceDay, currentTime
-                )
-            }
+        if (busTimetable == null) {
+            dataError = true
+        } else {
+            busSection = buildBusSection(
+                busTimetable, currentLocation, serviceDay, currentTime
+            )
         }
 
         // 6. ステータスメッセージ
@@ -201,18 +199,42 @@ class RefreshWidgetUseCase(
             BusDirection.TO_MURATA -> busTimetable.toMurata
         }
 
-        val directionLabel = when (direction) {
-            BusDirection.TO_YASU -> "野洲駅"
-            BusDirection.TO_MURATA -> "村田"
+        // 野洲駅系と北口系に分割
+        val yasuTimetable = DirectionTimetable(
+            weekday = directionTimetable.weekday.filter { !it.destination.contains("北口") },
+            holiday = directionTimetable.holiday.filter { !it.destination.contains("北口") }
+        )
+        val kitaguchiTimetable = DirectionTimetable(
+            weekday = directionTimetable.weekday.filter { it.destination.contains("北口") },
+            holiday = directionTimetable.holiday.filter { it.destination.contains("北口") }
+        )
+
+        val busStopName = when (direction) {
+            BusDirection.TO_YASU -> "村田製作所"
+            BusDirection.TO_MURATA -> "野洲駅"
+        }
+        val yasuLabel = when (direction) {
+            BusDirection.TO_YASU -> "野洲駅行"
+            BusDirection.TO_MURATA -> "野洲駅発"
+        }
+        val kitaguchiLabel = when (direction) {
+            BusDirection.TO_YASU -> "北口行"
+            BusDirection.TO_MURATA -> "北口発"
         }
 
-        val departures = NextDeparturesSelector.select(
-            directionTimetable, serviceDay, currentTime, BUS_COUNT
+        val yasuDepartures = NextDeparturesSelector.select(
+            yasuTimetable, serviceDay, currentTime, BUS_COUNT
+        )
+        val kitaguchiDepartures = NextDeparturesSelector.select(
+            kitaguchiTimetable, serviceDay, currentTime, BUS_COUNT
         )
 
         return BusSection(
-            directionLabel = directionLabel,
-            departures = departures
+            busStopName = busStopName,
+            yasuLabel = yasuLabel,
+            kitaguchiLabel = kitaguchiLabel,
+            yasuDepartures = yasuDepartures,
+            kitaguchiDepartures = kitaguchiDepartures
         )
     }
 
