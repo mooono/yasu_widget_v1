@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!--
-  Widget レイアウト（UI-REQ-001/002/003）
+  Widget レイアウト（UI-REQ-001/003）
   表示モードに応じてセクションの表示/非表示を切り替える
 -->
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
@@ -131,42 +131,6 @@
                 android:textSize="13sp"
                 android:singleLine="true"
                 android:ellipsize="end" />
-        </LinearLayout>
-
-        <!-- 駅切替ボタン（UI-REQ-002 / SYS-REQ-031） -->
-        <LinearLayout
-            android:id="@+id/station_switch_buttons"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:gravity="end"
-            android:layout_marginTop="2dp">
-
-            <TextView
-                android:id="@+id/btn_station_prev"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="◀"
-                android:textColor="#FFFFFFFF"
-                android:textSize="14sp"
-                android:paddingStart="12dp"
-                android:paddingEnd="12dp"
-                android:paddingTop="2dp"
-                android:paddingBottom="2dp"
-                android:background="?android:attr/selectableItemBackground" />
-
-            <TextView
-                android:id="@+id/btn_station_next"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="▶"
-                android:textColor="#FFFFFFFF"
-                android:textSize="14sp"
-                android:paddingStart="12dp"
-                android:paddingEnd="12dp"
-                android:paddingTop="2dp"
-                android:paddingBottom="2dp"
-                android:background="?android:attr/selectableItemBackground" />
         </LinearLayout>
     </LinearLayout>
 

@@ -178,4 +178,74 @@ class TimetableParserTest {
         assertEquals(1, timetable.toYasu.weekday.size)
         assertEquals("", timetable.toYasu.weekday[0].destination)
     }
+
+    @Test
+    fun `typeフィールドをパースできる`() {
+        val json = """
+        {
+          "stations": {
+            "Yasu": {
+              "name": "野洲",
+              "lines": {
+                "Tokaido": {
+                  "name": "琵琶湖線",
+                  "up": {
+                    "weekday": [
+                      { "time": "07:12", "destination": "京都", "type": "新快速" },
+                      { "time": "07:25", "destination": "京都", "type": "普通" }
+                    ],
+                    "holiday": []
+                  },
+                  "down": {
+                    "weekday": [
+                      { "time": "07:05", "destination": "米原", "type": "快速" }
+                    ],
+                    "holiday": []
+                  }
+                }
+              }
+            }
+          }
+        }
+        """.trimIndent()
+
+        val timetable = TimetableParser.parseTrainTimetable(json)
+        val tokaido = timetable.stations["Yasu"]!!.lines["Tokaido"]!!
+
+        assertEquals("新快速", tokaido.up.weekday[0].trainType)
+        assertEquals("普通", tokaido.up.weekday[1].trainType)
+        assertEquals("快速", tokaido.down.weekday[0].trainType)
+    }
+
+    @Test
+    fun `typeフィールドが省略された場合は空文字`() {
+        val json = """
+        {
+          "stations": {
+            "Yasu": {
+              "name": "野洲",
+              "lines": {
+                "Tokaido": {
+                  "name": "琵琶湖線",
+                  "up": {
+                    "weekday": [
+                      { "time": "07:12", "destination": "京都" }
+                    ],
+                    "holiday": []
+                  },
+                  "down": {
+                    "weekday": [],
+                    "holiday": []
+                  }
+                }
+              }
+            }
+          }
+        }
+        """.trimIndent()
+
+        val timetable = TimetableParser.parseTrainTimetable(json)
+        val dep = timetable.stations["Yasu"]!!.lines["Tokaido"]!!.up.weekday[0]
+        assertEquals("", dep.trainType)
+    }
 }

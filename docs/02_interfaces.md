@@ -3,7 +3,7 @@
 ## 入力インタフェース
 - 位置情報（FusedLocationProviderClient等）
 - 時刻表JSON（電車: ユーザー投入、バス: 同梱）
-- ユーザー設定（固定駅、一時選択駅、有効期限）
+- ユーザー設定（固定駅）
 
 ## 出力インタフェース
 - Android AppWidget / Glance によるWidget描画
@@ -13,4 +13,3 @@
   - lastUpdatedAt
   - lastRenderedModel（最低限）
   - pinnedStationId（任意）
-  - overrideStationId + overrideExpiresAt（任意）

@@ -2,30 +2,864 @@
   "route_name": "野洲駅 ⇄ 村田製作所（野洲）",
   "to_yasu": {
     "weekday": [
-      { "time": "07:10", "destination": "野洲駅" },
-      { "time": "07:35", "destination": "野洲駅" },
-      { "time": "08:00", "destination": "野洲駅" },
-      { "time": "12:30", "destination": "野洲駅" },
-      { "time": "17:15", "destination": "野洲駅" },
-      { "time": "17:45", "destination": "野洲駅" },
-      { "time": "18:15", "destination": "野洲駅" },
-      { "time": "18:45", "destination": "野洲駅" },
-      { "time": "19:15", "destination": "野洲駅" },
-      { "time": "20:00", "destination": "野洲駅" }
+      {
+        "time": "07:00",
+        "destination": "野洲駅"
+      },
+      {
+        "time": "07:30",
+        "destination": "野洲駅"
+      },
+      {
+        "time": "08:30",
+        "destination": "野洲駅"
+      },
+      {
+        "time": "08:56",
+        "destination": "野洲駅"
+      },
+      {
+        "time": "09:28",
+        "destination": "野洲駅"
+      },
+      {
+        "time": "09:42",
+        "destination": "野洲駅"
+      },
+      {
+        "time": "10:00",
+        "destination": "野洲駅"
+      },
+      {
+        "time": "10:28",
+        "destination": "野洲駅"
+      },
+      {
+        "time": "10:43",
+        "destination": "野洲駅"
+      },
+      {
+        "time": "10:58",
+        "destination": "野洲駅"
+      },
+      {
+        "time": "11:15",
+        "destination": "野洲駅"
+      },
+      {
+        "time": "11:57",
+        "destination": "野洲駅"
+      },
+      {
+        "time": "12:20",
+        "destination": "野洲駅"
+      },
+      {
+        "time": "12:22",
+        "destination": "野洲駅"
+      },
+      {
+        "time": "12:43",
+        "destination": "野洲駅"
+      },
+      {
+        "time": "13:00",
+        "destination": "野洲駅"
+      },
+      {
+        "time": "13:52",
+        "destination": "野洲駅"
+      },
+      {
+        "time": "14:22",
+        "destination": "野洲駅"
+      },
+      {
+        "time": "14:52",
+        "destination": "野洲駅"
+      },
+      {
+        "time": "15:22",
+        "destination": "野洲駅"
+      },
+      {
+        "time": "15:33",
+        "destination": "野洲駅"
+      },
+      {
+        "time": "15:50",
+        "destination": "野洲駅"
+      },
+      {
+        "time": "16:22",
+        "destination": "野洲駅"
+      },
+      {
+        "time": "16:34",
+        "destination": "野洲駅"
+      },
+      {
+        "time": "16:50",
+        "destination": "野洲駅"
+      },
+      {
+        "time": "17:10",
+        "destination": "野洲駅"
+      },
+      {
+        "time": "17:15",
+        "destination": "野洲駅"
+      },
+      {
+        "time": "17:22",
+        "destination": "野洲駅"
+      },
+      {
+        "time": "17:30",
+        "destination": "野洲駅"
+      },
+      {
+        "time": "17:35",
+        "destination": "野洲駅"
+      },
+      {
+        "time": "17:39",
+        "destination": "野洲駅"
+      },
+      {
+        "time": "17:43",
+        "destination": "野洲駅"
+      },
+      {
+        "time": "17:50",
+        "destination": "野洲駅"
+      },
+      {
+        "time": "17:55",
+        "destination": "野洲駅"
+      },
+      {
+        "time": "18:02",
+        "destination": "野洲駅"
+      },
+      {
+        "time": "18:05",
+        "destination": "野洲駅"
+      },
+      {
+        "time": "18:10",
+        "destination": "野洲駅"
+      },
+      {
+        "time": "18:15",
+        "destination": "野洲駅"
+      },
+      {
+        "time": "18:25",
+        "destination": "野洲駅"
+      },
+      {
+        "time": "18:35",
+        "destination": "野洲駅"
+      },
+      {
+        "time": "18:39",
+        "destination": "野洲駅"
+      },
+      {
+        "time": "18:45",
+        "destination": "野洲駅"
+      },
+      {
+        "time": "18:55",
+        "destination": "野洲駅"
+      },
+      {
+        "time": "19:00",
+        "destination": "野洲駅"
+      },
+      {
+        "time": "19:11",
+        "destination": "野洲駅"
+      },
+      {
+        "time": "19:18",
+        "destination": "野洲駅"
+      },
+      {
+        "time": "19:26",
+        "destination": "野洲駅"
+      },
+      {
+        "time": "19:30",
+        "destination": "野洲駅"
+      },
+      {
+        "time": "19:45",
+        "destination": "野洲駅"
+      },
+      {
+        "time": "19:53",
+        "destination": "野洲駅"
+      },
+      {
+        "time": "20:00",
+        "destination": "野洲駅"
+      },
+      {
+        "time": "20:10",
+        "destination": "野洲駅"
+      },
+      {
+        "time": "20:20",
+        "destination": "野洲駅"
+      },
+      {
+        "time": "20:26",
+        "destination": "野洲駅"
+      },
+      {
+        "time": "20:38",
+        "destination": "野洲駅"
+      },
+      {
+        "time": "20:49",
+        "destination": "野洲駅"
+      },
+      {
+        "time": "21:02",
+        "destination": "野洲駅"
+      },
+      {
+        "time": "21:13",
+        "destination": "野洲駅"
+      },
+      {
+        "time": "21:30",
+        "destination": "野洲駅"
+      }
     ],
-    "holiday": []
+    "holiday": [
+      {
+        "time": "08:16",
+        "destination": "野洲駅"
+      },
+      {
+        "time": "09:15",
+        "destination": "野洲駅"
+      },
+      {
+        "time": "09:30",
+        "destination": "野洲駅"
+      },
+      {
+        "time": "10:00",
+        "destination": "野洲駅"
+      },
+      {
+        "time": "11:00",
+        "destination": "野洲駅"
+      },
+      {
+        "time": "12:00",
+        "destination": "野洲駅"
+      },
+      {
+        "time": "13:15",
+        "destination": "野洲駅"
+      },
+      {
+        "time": "15:30",
+        "destination": "野洲駅"
+      },
+      {
+        "time": "16:30",
+        "destination": "野洲駅"
+      },
+      {
+        "time": "17:30",
+        "destination": "野洲駅"
+      },
+      {
+        "time": "18:45",
+        "destination": "野洲駅"
+      }
+    ]
   },
   "to_murata": {
     "weekday": [
-      { "time": "07:30", "destination": "村田（野洲）" },
-      { "time": "07:50", "destination": "村田（野洲）" },
-      { "time": "08:20", "destination": "村田（野洲）" },
-      { "time": "12:50", "destination": "村田（野洲）" },
-      { "time": "17:35", "destination": "村田（野洲）" }
+      {
+        "time": "06:30",
+        "destination": "村田製作所"
+      },
+      {
+        "time": "06:40",
+        "destination": "村田製作所(北口発)"
+      },
+      {
+        "time": "06:52",
+        "destination": "村田製作所(北口発)"
+      },
+      {
+        "time": "06:53",
+        "destination": "村田製作所"
+      },
+      {
+        "time": "07:08",
+        "destination": "村田製作所"
+      },
+      {
+        "time": "07:10",
+        "destination": "村田製作所"
+      },
+      {
+        "time": "07:15",
+        "destination": "村田製作所"
+      },
+      {
+        "time": "07:25",
+        "destination": "村田製作所"
+      },
+      {
+        "time": "07:25",
+        "destination": "村田製作所(北口発)"
+      },
+      {
+        "time": "07:32",
+        "destination": "村田製作所"
+      },
+      {
+        "time": "07:32",
+        "destination": "村田製作所(北口発)"
+      },
+      {
+        "time": "07:36",
+        "destination": "村田製作所"
+      },
+      {
+        "time": "07:38",
+        "destination": "村田製作所"
+      },
+      {
+        "time": "07:38",
+        "destination": "村田製作所(北口発)"
+      },
+      {
+        "time": "07:40",
+        "destination": "村田製作所"
+      },
+      {
+        "time": "07:42",
+        "destination": "村田製作所"
+      },
+      {
+        "time": "07:42",
+        "destination": "村田製作所(北口発)"
+      },
+      {
+        "time": "07:50",
+        "destination": "村田製作所"
+      },
+      {
+        "time": "07:52",
+        "destination": "村田製作所"
+      },
+      {
+        "time": "07:55",
+        "destination": "村田製作所(北口発)"
+      },
+      {
+        "time": "08:00",
+        "destination": "村田製作所"
+      },
+      {
+        "time": "08:02",
+        "destination": "村田製作所(北口発)"
+      },
+      {
+        "time": "08:05",
+        "destination": "村田製作所"
+      },
+      {
+        "time": "08:10",
+        "destination": "村田製作所(北口発)"
+      },
+      {
+        "time": "08:13",
+        "destination": "村田製作所(北口発)"
+      },
+      {
+        "time": "08:17",
+        "destination": "村田製作所"
+      },
+      {
+        "time": "08:19",
+        "destination": "村田製作所"
+      },
+      {
+        "time": "08:22",
+        "destination": "村田製作所"
+      },
+      {
+        "time": "08:23",
+        "destination": "村田製作所(北口発)"
+      },
+      {
+        "time": "08:25",
+        "destination": "村田製作所"
+      },
+      {
+        "time": "08:27",
+        "destination": "村田製作所(北口発)"
+      },
+      {
+        "time": "08:30",
+        "destination": "村田製作所"
+      },
+      {
+        "time": "08:35",
+        "destination": "村田製作所"
+      },
+      {
+        "time": "08:36",
+        "destination": "村田製作所(北口発)"
+      },
+      {
+        "time": "08:38",
+        "destination": "村田製作所"
+      },
+      {
+        "time": "08:41",
+        "destination": "村田製作所"
+      },
+      {
+        "time": "08:41",
+        "destination": "村田製作所(北口発)"
+      },
+      {
+        "time": "08:48",
+        "destination": "村田製作所"
+      },
+      {
+        "time": "08:55",
+        "destination": "村田製作所"
+      },
+      {
+        "time": "09:00",
+        "destination": "村田製作所"
+      },
+      {
+        "time": "09:05",
+        "destination": "村田製作所"
+      },
+      {
+        "time": "09:15",
+        "destination": "村田製作所"
+      },
+      {
+        "time": "09:20",
+        "destination": "村田製作所"
+      },
+      {
+        "time": "09:20",
+        "destination": "村田製作所(北口発)"
+      },
+      {
+        "time": "09:27",
+        "destination": "村田製作所"
+      },
+      {
+        "time": "09:29",
+        "destination": "村田製作所(北口発)"
+      },
+      {
+        "time": "09:35",
+        "destination": "村田製作所"
+      },
+      {
+        "time": "09:38",
+        "destination": "村田製作所"
+      },
+      {
+        "time": "10:05",
+        "destination": "村田製作所"
+      },
+      {
+        "time": "10:10",
+        "destination": "村田製作所"
+      },
+      {
+        "time": "10:31",
+        "destination": "村田製作所"
+      },
+      {
+        "time": "10:40",
+        "destination": "村田製作所"
+      },
+      {
+        "time": "10:46",
+        "destination": "村田製作所"
+      },
+      {
+        "time": "11:03",
+        "destination": "村田製作所"
+      },
+      {
+        "time": "11:05",
+        "destination": "村田製作所"
+      },
+      {
+        "time": "11:10",
+        "destination": "村田製作所"
+      },
+      {
+        "time": "11:32",
+        "destination": "村田製作所"
+      },
+      {
+        "time": "11:40",
+        "destination": "村田製作所"
+      },
+      {
+        "time": "11:48",
+        "destination": "村田製作所"
+      },
+      {
+        "time": "12:05",
+        "destination": "村田製作所"
+      },
+      {
+        "time": "12:28",
+        "destination": "村田製作所"
+      },
+      {
+        "time": "12:32",
+        "destination": "村田製作所(北口発)"
+      },
+      {
+        "time": "12:40",
+        "destination": "村田製作所"
+      },
+      {
+        "time": "12:59",
+        "destination": "村田製作所"
+      },
+      {
+        "time": "13:05",
+        "destination": "村田製作所"
+      },
+      {
+        "time": "13:32",
+        "destination": "村田製作所"
+      },
+      {
+        "time": "13:40",
+        "destination": "村田製作所"
+      },
+      {
+        "time": "13:59",
+        "destination": "村田製作所"
+      },
+      {
+        "time": "14:05",
+        "destination": "村田製作所"
+      },
+      {
+        "time": "14:32",
+        "destination": "村田製作所"
+      },
+      {
+        "time": "14:40",
+        "destination": "村田製作所"
+      },
+      {
+        "time": "14:59",
+        "destination": "村田製作所"
+      },
+      {
+        "time": "15:05",
+        "destination": "村田製作所"
+      },
+      {
+        "time": "15:29",
+        "destination": "村田製作所"
+      },
+      {
+        "time": "15:40",
+        "destination": "村田製作所"
+      },
+      {
+        "time": "15:46",
+        "destination": "村田製作所"
+      },
+      {
+        "time": "16:03",
+        "destination": "村田製作所"
+      },
+      {
+        "time": "16:05",
+        "destination": "村田製作所"
+      },
+      {
+        "time": "16:32",
+        "destination": "村田製作所"
+      },
+      {
+        "time": "16:46",
+        "destination": "村田製作所"
+      },
+      {
+        "time": "16:53",
+        "destination": "村田製作所"
+      },
+      {
+        "time": "17:03",
+        "destination": "村田製作所"
+      },
+      {
+        "time": "17:10",
+        "destination": "村田製作所"
+      },
+      {
+        "time": "17:30",
+        "destination": "村田製作所"
+      },
+      {
+        "time": "17:33",
+        "destination": "村田製作所"
+      },
+      {
+        "time": "18:05",
+        "destination": "村田製作所"
+      },
+      {
+        "time": "18:15",
+        "destination": "村田製作所"
+      },
+      {
+        "time": "18:18",
+        "destination": "村田製作所"
+      },
+      {
+        "time": "18:35",
+        "destination": "村田製作所"
+      },
+      {
+        "time": "18:47",
+        "destination": "村田製作所"
+      },
+      {
+        "time": "18:50",
+        "destination": "村田製作所"
+      },
+      {
+        "time": "19:05",
+        "destination": "村田製作所"
+      },
+      {
+        "time": "19:08",
+        "destination": "村田製作所"
+      },
+      {
+        "time": "19:21",
+        "destination": "村田製作所"
+      },
+      {
+        "time": "19:47",
+        "destination": "村田製作所"
+      },
+      {
+        "time": "19:50",
+        "destination": "村田製作所"
+      },
+      {
+        "time": "20:10",
+        "destination": "村田製作所"
+      },
+      {
+        "time": "20:20",
+        "destination": "村田製作所"
+      },
+      {
+        "time": "20:40",
+        "destination": "村田製作所"
+      }
     ],
-    "holiday": []
+    "holiday": [
+      {
+        "time": "07:30",
+        "destination": "村田製作所"
+      },
+      {
+        "time": "07:40",
+        "destination": "村田製作所"
+      },
+      {
+        "time": "07:55",
+        "destination": "村田製作所"
+      },
+      {
+        "time": "08:05",
+        "destination": "村田製作所"
+      },
+      {
+        "time": "08:15",
+        "destination": "村田製作所"
+      },
+      {
+        "time": "08:20",
+        "destination": "村田製作所"
+      },
+      {
+        "time": "08:35",
+        "destination": "村田製作所"
+      },
+      {
+        "time": "08:40",
+        "destination": "村田製作所"
+      },
+      {
+        "time": "08:57",
+        "destination": "村田製作所"
+      },
+      {
+        "time": "09:05",
+        "destination": "村田製作所"
+      },
+      {
+        "time": "09:25",
+        "destination": "村田製作所"
+      },
+      {
+        "time": "09:35",
+        "destination": "村田製作所"
+      },
+      {
+        "time": "09:40",
+        "destination": "村田製作所"
+      },
+      {
+        "time": "10:05",
+        "destination": "村田製作所"
+      },
+      {
+        "time": "10:35",
+        "destination": "村田製作所"
+      },
+      {
+        "time": "10:40",
+        "destination": "村田製作所"
+      },
+      {
+        "time": "11:05",
+        "destination": "村田製作所"
+      },
+      {
+        "time": "11:31",
+        "destination": "村田製作所"
+      },
+      {
+        "time": "11:40",
+        "destination": "村田製作所"
+      },
+      {
+        "time": "11:50",
+        "destination": "村田製作所"
+      },
+      {
+        "time": "12:05",
+        "destination": "村田製作所"
+      },
+      {
+        "time": "12:35",
+        "destination": "村田製作所"
+      },
+      {
+        "time": "12:40",
+        "destination": "村田製作所"
+      },
+      {
+        "time": "13:05",
+        "destination": "村田製作所"
+      },
+      {
+        "time": "13:40",
+        "destination": "村田製作所"
+      },
+      {
+        "time": "14:00",
+        "destination": "村田製作所"
+      },
+      {
+        "time": "14:05",
+        "destination": "村田製作所"
+      },
+      {
+        "time": "14:40",
+        "destination": "村田製作所"
+      },
+      {
+        "time": "15:00",
+        "destination": "村田製作所"
+      },
+      {
+        "time": "15:05",
+        "destination": "村田製作所"
+      },
+      {
+        "time": "15:40",
+        "destination": "村田製作所"
+      },
+      {
+        "time": "16:05",
+        "destination": "村田製作所"
+      },
+      {
+        "time": "16:10",
+        "destination": "村田製作所"
+      },
+      {
+        "time": "16:40",
+        "destination": "村田製作所"
+      },
+      {
+        "time": "17:05",
+        "destination": "村田製作所"
+      },
+      {
+        "time": "17:10",
+        "destination": "村田製作所"
+      },
+      {
+        "time": "18:25",
+        "destination": "村田製作所"
+      },
+      {
+        "time": "18:30",
+        "destination": "村田製作所"
+      },
+      {
+        "time": "19:10",
+        "destination": "村田製作所"
+      },
+      {
+        "time": "19:20",
+        "destination": "村田製作所"
+      },
+      {
+        "time": "20:10",
+        "destination": "村田製作所"
+      },
+      {
+        "time": "20:50",
+        "destination": "村田製作所"
+      }
+    ]
   },
   "notes": [
-    "村田製作所休業日は運休の可能性があります（v1は休業日判定しません）"
+    "村田製作所休業日は運休の可能性があります（v1は休業日判定しません）",
+    "(北口発) = 野洲駅北口のりば1から発車",
+    "それ以外 = 野洲駅のりば2（南口）から発車",
+    "2026年2月時点のダイヤに基づきます"
   ]
 }

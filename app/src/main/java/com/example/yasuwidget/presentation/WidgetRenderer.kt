@@ -85,11 +85,12 @@ object WidgetRenderer {
 
         return departures.joinToString(" / ") { dep ->
             val time = dep.time.format(TIME_FORMATTER)
-            if (dep.destination.isNotEmpty()) {
-                "$time ${dep.destination}"
-            } else {
-                time
+            val parts = buildList {
+                add(time)
+                if (dep.trainType.isNotEmpty()) add(dep.trainType)
+                if (dep.destination.isNotEmpty()) add(dep.destination)
             }
+            parts.joinToString(" ")
         }
     }
 }

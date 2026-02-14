@@ -6,7 +6,6 @@ import com.example.yasuwidget.domain.model.StationInfo
 /**
  * 位置情報に関する定数
  * SYS-REQ-010/011: 表示モード判定用半径
- * SYS-REQ-031: 一時選択有効期間
  */
 object LocationConstants {
     /** 野洲駅 */
@@ -20,9 +19,6 @@ object LocationConstants {
 
     /** 野洲駅判定半径（メートル）SYS-REQ-011 */
     const val YASU_RADIUS_METERS = 1000.0
-
-    /** 一時選択の有効期間（分）SYS-REQ-031 */
-    const val SWIPE_OVERRIDE_DURATION_MINUTES = 30L
 
     /**
      * 東海道線 長岡京〜野洲 の全駅一覧（v1スコープ）

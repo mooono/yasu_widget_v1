@@ -19,14 +19,14 @@
 
 ### 2.1 Presentation（Widget/UI）
 責務:
-- Widget 操作イベント受信（手動更新、駅切替）
+- Widget 操作イベント受信（手動更新）
 - `WidgetUiState` を描画
 - エラー詳細を隠蔽し、ユーザー向け文言を表示
 
 主要コンポーネント:
 - `TransitWidgetReceiver`（AppWidget/Glance エントリ）
 - `WidgetRenderer`（`WidgetUiState` -> RemoteViews/Glance UI）
-- `WidgetActionHandler`（`RefreshNow`、`SwitchStationNext/Prev`）
+- `WidgetActionHandler`（`RefreshNow`）
 
 ### 2.2 Application（UseCase/Orchestration）
 責務:
@@ -40,7 +40,6 @@
 - `ResolveBusDirectionUseCase`
 - `ResolveTargetStationUseCase`
 - `BuildWidgetUiStateUseCase`
-- `SwitchStationOverrideUseCase`
 
 ### 2.3 Domain（純粋ロジック）
 責務:
@@ -95,8 +94,6 @@ DataStore キー:
 - `last_updated_at_epoch_millis`
 - `last_rendered_ui_state_json`
 - `pinned_station_id`
-- `override_station_id`
-- `override_expires_at_epoch_millis`
 
 ---
 
@@ -114,15 +111,10 @@ DataStore キー:
 - `distance(current, MURATA) < distance(current, YASU)` -> `TO_YASU`
 - それ以外 -> `TO_MURATA`
 
-### 4.3 電車駅選択（SYS-REQ-030/031/032/033）
+### 4.3 電車駅選択（SYS-REQ-030）
 優先順位:
-1. 一時選択（期限内）
-2. 固定駅
-3. 自動最寄り駅
-
-駅切替イベント時:
-- `override_station_id` 更新
-- `override_expires_at = now + 30min`
+1. 固定駅
+2. 自動最寄り駅
 
 ### 4.4 曜日判定（SYS-REQ-003/004）
 - 土日 -> `HOLIDAY`
@@ -186,7 +178,7 @@ DataStore キー:
 - `DisplayModeResolverTest` -> AC-001/002/003
 - `BusDirectionResolverTest` -> AC-004
 - `ServiceDayResolverTest` -> AC-005
-- `TrainStationResolverTest` -> AC-008
+- `TrainStationResolverTest` -> SYS-REQ-030
 - `NextDeparturesSelectorTest` -> AC-003
 
 ### 8.2 Application テスト
@@ -219,7 +211,7 @@ DataStore キー:
 
 - SYS-REQ-010/011/012 -> `DisplayModeResolver`
 - SYS-REQ-020/021 -> `BusDirectionResolver`
-- SYS-REQ-030〜033 -> `TrainStationResolver` + `SwitchStationOverrideUseCase`
+- SYS-REQ-030 -> `TrainStationResolver`
 - SYS-REQ-040/041/044 -> `RefreshWidgetUseCase` + `UpdateScheduler`
 - SYS-REQ-042/043 -> `RefreshWidgetUseCase`（フォールバック/エラー文言）
 - DATA-REQ-001/002/003 -> `TimetableRepository` + `NextDeparturesSelector`

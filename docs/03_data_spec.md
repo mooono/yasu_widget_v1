@@ -32,6 +32,7 @@
 
 - `time`: `HH:mm`（24時間表記）
 - `destination`: 表示用（省略可）
+- `type`: 列車種別（省略可）。例: `"新快速"`, `"快速"`, `"普通"`
 
 ## bus_timetable.json（同梱）
 ```json

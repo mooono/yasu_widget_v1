@@ -99,7 +99,7 @@ class RefreshWidgetUseCase(
                 dataError = true
             } else {
                 trainSection = buildTrainSection(
-                    trainTimetable, currentLocation, serviceDay, currentTime, currentEpochMillis
+                    trainTimetable, currentLocation, serviceDay, currentTime
                 )
             }
         }
@@ -151,8 +151,7 @@ class RefreshWidgetUseCase(
         timetable: TrainTimetable,
         currentLocation: GeoPoint?,
         serviceDay: ServiceDay,
-        currentTime: java.time.LocalTime,
-        currentEpochMillis: Long
+        currentTime: java.time.LocalTime
     ): TrainSection? {
         // 利用可能な駅一覧（時刻表にある駅のみ）
         val availableStations = LocationConstants.TOKAIDO_STATIONS.filter {
@@ -160,15 +159,7 @@ class RefreshWidgetUseCase(
         }
         if (availableStations.isEmpty()) return null
 
-        // 一時選択の有効性チェック
-        val effectiveOverride = if (stateStore.isOverrideActive(currentEpochMillis)) {
-            stateStore.overrideStationId
-        } else {
-            null
-        }
-
         val station = TrainStationResolver.resolve(
-            overrideStationId = effectiveOverride,
             pinnedStationId = stateStore.pinnedStationId,
             currentLocation = currentLocation,
             availableStations = availableStations

@@ -11,8 +11,6 @@ import com.example.yasuwidget.domain.model.WidgetUiState
  * - last_updated_at_epoch_millis
  * - last_rendered_ui_state_json
  * - pinned_station_id
- * - override_station_id
- * - override_expires_at_epoch_millis
  */
 class WidgetStateStore(context: Context) {
 
@@ -21,8 +19,6 @@ class WidgetStateStore(context: Context) {
         private const val KEY_LAST_UPDATED_AT = "last_updated_at_epoch_millis"
         private const val KEY_LAST_UI_STATE_JSON = "last_rendered_ui_state_json"
         private const val KEY_PINNED_STATION_ID = "pinned_station_id"
-        private const val KEY_OVERRIDE_STATION_ID = "override_station_id"
-        private const val KEY_OVERRIDE_EXPIRES_AT = "override_expires_at_epoch_millis"
         private const val KEY_CACHED_LAT = "cached_latitude"
         private const val KEY_CACHED_LON = "cached_longitude"
     }
@@ -44,43 +40,6 @@ class WidgetStateStore(context: Context) {
     var pinnedStationId: String?
         get() = prefs.getString(KEY_PINNED_STATION_ID, null)
         set(value) = prefs.edit().putString(KEY_PINNED_STATION_ID, value).apply()
-
-    // --- 一時選択駅 ---
-    var overrideStationId: String?
-        get() = prefs.getString(KEY_OVERRIDE_STATION_ID, null)
-        set(value) = prefs.edit().putString(KEY_OVERRIDE_STATION_ID, value).apply()
-
-    var overrideExpiresAtEpochMillis: Long
-        get() = prefs.getLong(KEY_OVERRIDE_EXPIRES_AT, 0L)
-        set(value) = prefs.edit().putLong(KEY_OVERRIDE_EXPIRES_AT, value).apply()
-
-    /**
-     * 一時選択が有効かどうか（SYS-REQ-032/033）
-     */
-    fun isOverrideActive(currentEpochMillis: Long): Boolean {
-        val id = overrideStationId ?: return false
-        return id.isNotEmpty() && currentEpochMillis < overrideExpiresAtEpochMillis
-    }
-
-    /**
-     * 一時選択を設定する（SYS-REQ-031）
-     */
-    fun setOverride(stationId: String, expiresAtEpochMillis: Long) {
-        prefs.edit()
-            .putString(KEY_OVERRIDE_STATION_ID, stationId)
-            .putLong(KEY_OVERRIDE_EXPIRES_AT, expiresAtEpochMillis)
-            .apply()
-    }
-
-    /**
-     * 一時選択をクリアする（SYS-REQ-033）
-     */
-    fun clearOverride() {
-        prefs.edit()
-            .remove(KEY_OVERRIDE_STATION_ID)
-            .remove(KEY_OVERRIDE_EXPIRES_AT)
-            .apply()
-    }
 
     // --- キャッシュ位置情報 ---
     fun getCachedLatitude(): Double? {
