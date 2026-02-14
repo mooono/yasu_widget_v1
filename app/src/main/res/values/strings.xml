@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">YasuWidget</string>
+    <string name="widget_description">野洲駅・村田製作所間の電車・バス時刻表</string>
 </resources>
