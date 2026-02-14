@@ -6,10 +6,10 @@ JRおでかけネットから保存したHTMLファイルを解析し、
 15駅分の時刻表を列車種別（普通/快速/新快速）付きで生成する。
 
 入力:
-  /tmp/jr_down_wd.html  - 下り・平日
-  /tmp/jr_down.html     - 下り・土休日
-  /tmp/jr_up_wd.html    - 上り・平日
-  /tmp/jr_up.html       - 上り・土休日
+  /tmp/jr_down_wd.html  - 下り・平日  （京都・大阪方面）
+  /tmp/jr_down.html     - 下り・土休日 （京都・大阪方面）
+  /tmp/jr_up_wd.html    - 上り・平日  （米原方面）
+  /tmp/jr_up.html       - 上り・土休日 （米原方面）
 
 出力:
   /tmp/train_timetable_with_type.json
@@ -37,11 +37,13 @@ STATIONS = [
     ("Yasu", "野洲"),
 ]
 
+# JRサイトの「上り」= 米原方面 = アプリの「上り」
+# JRサイトの「下り」= 京都方面 = アプリの「下り」
 HTML_FILES = {
-    ('down', 'weekday'): '/tmp/jr_down_wd.html',
-    ('down', 'holiday'): '/tmp/jr_down.html',
     ('up', 'weekday'): '/tmp/jr_up_wd.html',
     ('up', 'holiday'): '/tmp/jr_up.html',
+    ('down', 'weekday'): '/tmp/jr_down_wd.html',
+    ('down', 'holiday'): '/tmp/jr_down.html',
 }
 
 OUTPUT_PATH = '/tmp/train_timetable_with_type.json'
@@ -64,14 +66,15 @@ def extract_all_stations(html_path, direction):
                 train_types.append(m.group(1) if m else '')
             break
 
-    # 行先行を取得
+    # 行先行を取得（「終着」行から最終行先を抽出）
     destinations = []
     for row in rows:
-        if 'station-name' in row:
+        m = re.search(r'tbl-header[^>]*>([^<]+)', row)
+        if m and m.group(1).strip() == '終着':
             cells_raw = re.findall(r'<td class="cell[^"]*">(.*?)</td>', row)
             for c in cells_raw:
-                m = re.search(r'station-name">([^<]+)', c)
-                destinations.append(m.group(1) if m else '')
+                m2 = re.search(r'station-name">([^<]+)', c)
+                destinations.append(m2.group(1) if m2 else '')
             break
 
     num_trains = len(train_types)
@@ -147,23 +150,18 @@ def extract_all_stations(html_path, direction):
 
 
 def map_destination(dest, direction):
-    """遠方行先を短縮ラベルに変換する"""
-    if direction == 'up':
-        mapping = {
-            '網干': '姫路方面', '播州赤穂': '姫路方面', '上郡': '姫路方面',
-            '新三田': '大阪方面', '関西空港': '大阪方面', '宝塚': '大阪方面',
-            '倉吉': '大阪方面', '鳥取': '大阪方面', '香住': '大阪方面',
-            '豊岡': '大阪方面', '白浜': '大阪方面', '浜坂': '大阪方面',
-            '城崎温泉': '大阪方面',
-        }
-        return mapping.get(dest, dest if dest else '京都方面')
-    else:
-        mapping = {
-            '四条畷': '米原方面', '松井山手': '米原方面', '長尾': '米原方面',
-            '京田辺': '米原方面', '同志社前': '米原方面', '木津': '米原方面',
-            '高山': '米原方面',
-        }
-        return mapping.get(dest, dest if dest else '米原方面')
+    """行先駅名を「〜行」形式に変換する
+
+    終着行が空の場合、時刻表の最終駅がデフォルト行先となる:
+      上り（米原方面）→ 米原行
+      下り（京都方面）→ 姫路行
+    """
+    if not dest:
+        return '米原行' if direction == 'up' else '姫路行'
+    # 既に「行」が付いている場合はそのまま
+    if dest.endswith('行'):
+        return dest
+    return f'{dest}行'
 
 
 def map_train_type(ttype):

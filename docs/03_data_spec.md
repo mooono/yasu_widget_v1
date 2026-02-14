@@ -13,13 +13,13 @@
           "name": "東海道線",
           "up": {
             "weekday": [
-              { "time": "07:12", "destination": "京都" }
+              { "time": "07:05", "destination": "米原" }
             ],
             "holiday": []
           },
           "down": {
             "weekday": [
-              { "time": "07:05", "destination": "米原" }
+              { "time": "07:12", "destination": "網干" }
             ],
             "holiday": []
           }

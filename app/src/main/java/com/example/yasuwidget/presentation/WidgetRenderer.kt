@@ -78,7 +78,7 @@ object WidgetRenderer {
 
     /**
      * 発車時刻リストを表示文字列にフォーマットする
-     * 例: "07:12 京都 / 07:25 京都"
+     * 例: "07:05 普通 米原行 / 07:12 新快速 網干行"
      */
     private fun formatDepartures(departures: List<Departure>): String {
         if (departures.isEmpty()) return "---"

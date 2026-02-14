@@ -24,17 +24,17 @@ class TimetableParserTest {
                   "name": "東海道線",
                   "up": {
                     "weekday": [
-                      { "time": "07:12", "destination": "京都" },
-                      { "time": "07:25", "destination": "京都" }
+                      { "time": "07:12", "destination": "米原行" },
+                      { "time": "07:25", "destination": "米原行" }
                     ],
                     "holiday": []
                   },
                   "down": {
                     "weekday": [
-                      { "time": "07:05", "destination": "米原" }
+                      { "time": "07:05", "destination": "姫路行" }
                     ],
                     "holiday": [
-                      { "time": "08:00", "destination": "米原" }
+                      { "time": "08:00", "destination": "網干行" }
                     ]
                   }
                 }
@@ -59,7 +59,7 @@ class TimetableParserTest {
         assertEquals(1, tokaido.down.holiday.size)
 
         assertEquals(LocalTime.of(7, 12), tokaido.up.weekday[0].time)
-        assertEquals("京都", tokaido.up.weekday[0].destination)
+        assertEquals("米原行", tokaido.up.weekday[0].destination)
         assertEquals(LocalTime.of(7, 5), tokaido.down.weekday[0].time)
     }
 
@@ -84,7 +84,7 @@ class TimetableParserTest {
                 "Tokaido": {
                   "name": "東海道線",
                   "up": {
-                    "weekday": [{ "time": "25:99", "destination": "京都" }],
+                    "weekday": [{ "time": "25:99", "destination": "米原行" }],
                     "holiday": []
                   },
                   "down": {
@@ -191,14 +191,14 @@ class TimetableParserTest {
                   "name": "琵琶湖線",
                   "up": {
                     "weekday": [
-                      { "time": "07:12", "destination": "京都", "type": "新快速" },
-                      { "time": "07:25", "destination": "京都", "type": "普通" }
+                      { "time": "07:12", "destination": "米原行", "type": "新快速" },
+                      { "time": "07:25", "destination": "米原行", "type": "普通" }
                     ],
                     "holiday": []
                   },
                   "down": {
                     "weekday": [
-                      { "time": "07:05", "destination": "米原", "type": "快速" }
+                      { "time": "07:05", "destination": "姫路行", "type": "快速" }
                     ],
                     "holiday": []
                   }
@@ -229,7 +229,7 @@ class TimetableParserTest {
                   "name": "琵琶湖線",
                   "up": {
                     "weekday": [
-                      { "time": "07:12", "destination": "京都" }
+                      { "time": "07:12", "destination": "米原行" }
                     ],
                     "holiday": []
                   },
