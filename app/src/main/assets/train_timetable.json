@@ -1,0 +1,94 @@
+{
+  "stations": {
+    "Yasu": {
+      "name": "野洲",
+      "lines": {
+        "Tokaido": {
+          "name": "東海道線",
+          "up": {
+            "weekday": [
+              { "time": "05:35", "destination": "京都" },
+              { "time": "06:02", "destination": "京都" },
+              { "time": "06:23", "destination": "京都" },
+              { "time": "06:40", "destination": "京都" },
+              { "time": "06:55", "destination": "大阪" },
+              { "time": "07:12", "destination": "京都" },
+              { "time": "07:25", "destination": "京都" },
+              { "time": "07:40", "destination": "大阪" },
+              { "time": "07:55", "destination": "京都" },
+              { "time": "08:10", "destination": "京都" },
+              { "time": "08:25", "destination": "大阪" },
+              { "time": "08:45", "destination": "京都" },
+              { "time": "12:10", "destination": "京都" },
+              { "time": "12:40", "destination": "京都" },
+              { "time": "17:10", "destination": "京都" },
+              { "time": "17:40", "destination": "京都" },
+              { "time": "18:10", "destination": "京都" },
+              { "time": "18:40", "destination": "京都" },
+              { "time": "19:10", "destination": "京都" },
+              { "time": "19:40", "destination": "京都" },
+              { "time": "20:10", "destination": "京都" },
+              { "time": "20:45", "destination": "京都" },
+              { "time": "21:15", "destination": "京都" },
+              { "time": "21:50", "destination": "京都" },
+              { "time": "22:20", "destination": "京都" },
+              { "time": "22:55", "destination": "京都" },
+              { "time": "23:25", "destination": "京都" }
+            ],
+            "holiday": [
+              { "time": "07:00", "destination": "京都" },
+              { "time": "07:30", "destination": "京都" },
+              { "time": "08:00", "destination": "京都" },
+              { "time": "08:30", "destination": "京都" },
+              { "time": "09:00", "destination": "京都" },
+              { "time": "12:00", "destination": "京都" },
+              { "time": "15:00", "destination": "京都" },
+              { "time": "18:00", "destination": "京都" },
+              { "time": "21:00", "destination": "京都" }
+            ]
+          },
+          "down": {
+            "weekday": [
+              { "time": "05:45", "destination": "米原" },
+              { "time": "06:15", "destination": "米原" },
+              { "time": "06:45", "destination": "米原" },
+              { "time": "07:05", "destination": "米原" },
+              { "time": "07:18", "destination": "米原" },
+              { "time": "07:35", "destination": "米原" },
+              { "time": "07:50", "destination": "米原" },
+              { "time": "08:05", "destination": "米原" },
+              { "time": "08:20", "destination": "米原" },
+              { "time": "08:45", "destination": "米原" },
+              { "time": "12:15", "destination": "米原" },
+              { "time": "12:45", "destination": "米原" },
+              { "time": "17:15", "destination": "米原" },
+              { "time": "17:45", "destination": "米原" },
+              { "time": "18:15", "destination": "米原" },
+              { "time": "18:45", "destination": "米原" },
+              { "time": "19:15", "destination": "米原" },
+              { "time": "19:45", "destination": "米原" },
+              { "time": "20:15", "destination": "米原" },
+              { "time": "20:50", "destination": "米原" },
+              { "time": "21:20", "destination": "米原" },
+              { "time": "21:55", "destination": "米原" },
+              { "time": "22:30", "destination": "米原" },
+              { "time": "23:05", "destination": "米原" },
+              { "time": "23:35", "destination": "米原" }
+            ],
+            "holiday": [
+              { "time": "07:10", "destination": "米原" },
+              { "time": "07:40", "destination": "米原" },
+              { "time": "08:10", "destination": "米原" },
+              { "time": "08:40", "destination": "米原" },
+              { "time": "09:10", "destination": "米原" },
+              { "time": "12:10", "destination": "米原" },
+              { "time": "15:10", "destination": "米原" },
+              { "time": "18:10", "destination": "米原" },
+              { "time": "21:10", "destination": "米原" }
+            ]
+          }
+        }
+      }
+    }
+  }
+}

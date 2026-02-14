@@ -1,0 +1,202 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  Widget レイアウト（UI-REQ-001/002/003）
+  表示モードに応じてセクションの表示/非表示を切り替える
+-->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/widget_root"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#E0222222"
+    android:orientation="vertical"
+    android:padding="8dp">
+
+    <!-- ヘッダー: 駅名/エリア名 + 路線名 + 更新時刻 + 更新ボタン -->
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="4dp">
+
+        <!-- 駅名/エリア表示 -->
+        <TextView
+            android:id="@+id/text_header_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:text="野洲"
+            android:textColor="#FFFFFFFF"
+            android:textSize="14sp"
+            android:textStyle="bold" />
+
+        <!-- 路線名 -->
+        <TextView
+            android:id="@+id/text_line_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toEndOf="@id/text_header_title"
+            android:layout_marginStart="6dp"
+            android:layout_centerVertical="true"
+            android:text="東海道線"
+            android:textColor="#AAFFFFFF"
+            android:textSize="11sp" />
+
+        <!-- 更新時刻 -->
+        <TextView
+            android:id="@+id/text_last_updated"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toStartOf="@id/btn_refresh"
+            android:layout_centerVertical="true"
+            android:text="更新 07:01"
+            android:textColor="#AAFFFFFF"
+            android:textSize="10sp"
+            android:layout_marginEnd="4dp" />
+
+        <!-- 手動更新ボタン（UI-REQ-003 / SYS-REQ-044） -->
+        <ImageView
+            android:id="@+id/btn_refresh"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true"
+            android:contentDescription="更新"
+            android:src="@android:drawable/ic_popup_sync"
+            android:background="?android:attr/selectableItemBackgroundBorderless" />
+    </RelativeLayout>
+
+    <!-- ステータスメッセージ（SYS-REQ-042/043） -->
+    <TextView
+        android:id="@+id/text_status_message"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textColor="#FFFFAA00"
+        android:textSize="11sp"
+        android:visibility="gone" />
+
+    <!-- 電車セクション（TRAIN_ONLY / TRAIN_AND_BUS） -->
+    <LinearLayout
+        android:id="@+id/section_train"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_marginBottom="2dp">
+
+        <!-- 上り -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center_vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="↑"
+                android:textColor="#FF88CCFF"
+                android:textSize="13sp"
+                android:layout_marginEnd="4dp" />
+
+            <TextView
+                android:id="@+id/text_train_up"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:textColor="#FFFFFFFF"
+                android:textSize="13sp"
+                android:singleLine="true"
+                android:ellipsize="end" />
+        </LinearLayout>
+
+        <!-- 下り -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center_vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="↓"
+                android:textColor="#FFFFAA88"
+                android:textSize="13sp"
+                android:layout_marginEnd="4dp" />
+
+            <TextView
+                android:id="@+id/text_train_down"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:textColor="#FFFFFFFF"
+                android:textSize="13sp"
+                android:singleLine="true"
+                android:ellipsize="end" />
+        </LinearLayout>
+
+        <!-- 駅切替ボタン（UI-REQ-002 / SYS-REQ-031） -->
+        <LinearLayout
+            android:id="@+id/station_switch_buttons"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="end"
+            android:layout_marginTop="2dp">
+
+            <TextView
+                android:id="@+id/btn_station_prev"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="◀"
+                android:textColor="#FFFFFFFF"
+                android:textSize="14sp"
+                android:paddingStart="12dp"
+                android:paddingEnd="12dp"
+                android:paddingTop="2dp"
+                android:paddingBottom="2dp"
+                android:background="?android:attr/selectableItemBackground" />
+
+            <TextView
+                android:id="@+id/btn_station_next"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="▶"
+                android:textColor="#FFFFFFFF"
+                android:textSize="14sp"
+                android:paddingStart="12dp"
+                android:paddingEnd="12dp"
+                android:paddingTop="2dp"
+                android:paddingBottom="2dp"
+                android:background="?android:attr/selectableItemBackground" />
+        </LinearLayout>
+    </LinearLayout>
+
+    <!-- バスセクション（BUS_ONLY / TRAIN_AND_BUS） -->
+    <LinearLayout
+        android:id="@+id/section_bus"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:layout_marginTop="2dp">
+
+        <TextView
+            android:id="@+id/text_bus_label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Bus → 村田"
+            android:textColor="#FF88FF88"
+            android:textSize="12sp"
+            android:layout_marginEnd="6dp" />
+
+        <TextView
+            android:id="@+id/text_bus_departures"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:textColor="#FFFFFFFF"
+            android:textSize="13sp"
+            android:singleLine="true"
+            android:ellipsize="end" />
+    </LinearLayout>
+
+</LinearLayout>

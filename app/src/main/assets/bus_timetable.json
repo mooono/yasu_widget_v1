@@ -1,0 +1,31 @@
+{
+  "route_name": "野洲駅 ⇄ 村田製作所（野洲）",
+  "to_yasu": {
+    "weekday": [
+      { "time": "07:10", "destination": "野洲駅" },
+      { "time": "07:35", "destination": "野洲駅" },
+      { "time": "08:00", "destination": "野洲駅" },
+      { "time": "12:30", "destination": "野洲駅" },
+      { "time": "17:15", "destination": "野洲駅" },
+      { "time": "17:45", "destination": "野洲駅" },
+      { "time": "18:15", "destination": "野洲駅" },
+      { "time": "18:45", "destination": "野洲駅" },
+      { "time": "19:15", "destination": "野洲駅" },
+      { "time": "20:00", "destination": "野洲駅" }
+    ],
+    "holiday": []
+  },
+  "to_murata": {
+    "weekday": [
+      { "time": "07:30", "destination": "村田（野洲）" },
+      { "time": "07:50", "destination": "村田（野洲）" },
+      { "time": "08:20", "destination": "村田（野洲）" },
+      { "time": "12:50", "destination": "村田（野洲）" },
+      { "time": "17:35", "destination": "村田（野洲）" }
+    ],
+    "holiday": []
+  },
+  "notes": [
+    "村田製作所休業日は運休の可能性があります（v1は休業日判定しません）"
+  ]
+}
