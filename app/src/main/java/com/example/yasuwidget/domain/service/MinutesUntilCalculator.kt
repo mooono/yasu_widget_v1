@@ -11,14 +11,15 @@ object MinutesUntilCalculator {
 
     /**
      * 現在時刻から発車時刻までの残り分数を計算する
-     * 発車時刻が現在時刻以降であることを前提とする
+     * 発車時刻が現在時刻より前の場合は0を返す
      *
      * @param currentTime 現在時刻
      * @param departureTime 発車時刻
-     * @return 残り分数（切り捨て）
+     * @return 残り分数（切り捨て、0以上）
      */
     fun calculate(currentTime: LocalTime, departureTime: LocalTime): Long {
-        return ChronoUnit.MINUTES.between(currentTime, departureTime)
+        val minutes = ChronoUnit.MINUTES.between(currentTime, departureTime)
+        return maxOf(minutes, 0)
     }
 
     /**

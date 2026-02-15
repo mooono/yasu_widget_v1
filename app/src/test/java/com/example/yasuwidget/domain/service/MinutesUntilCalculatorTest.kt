@@ -63,4 +63,12 @@ class MinutesUntilCalculatorTest {
     fun `formatTextで120分後を表示する`() {
         assertEquals("120分後", MinutesUntilCalculator.formatText(120))
     }
+
+    @Test
+    fun `発車時刻が過ぎている場合は0を返す`() {
+        val result = MinutesUntilCalculator.calculate(
+            LocalTime.of(7, 20), LocalTime.of(7, 15)
+        )
+        assertEquals(0, result)
+    }
 }
