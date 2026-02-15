@@ -160,12 +160,12 @@ object WidgetRenderer {
 
     /**
      * 列車種別に対応するバッジ背景 Drawable を返す
-     * 普通=黒, 快速=オレンジ, 新快速=青
+     * 普通=グラスモーフィズム, 快速=オレンジグラデーション, 新快速=ブルーグラデーション
      */
     private fun badgeDrawable(trainType: String): Int = when (trainType) {
-        "新快速" -> R.drawable.badge_special_rapid
-        "快速" -> R.drawable.badge_rapid
-        else -> R.drawable.badge_local
+        "新快速" -> R.drawable.badge_special_rapid_premium
+        "快速" -> R.drawable.badge_rapid_premium
+        else -> R.drawable.badge_local_premium
     }
 
     /**
