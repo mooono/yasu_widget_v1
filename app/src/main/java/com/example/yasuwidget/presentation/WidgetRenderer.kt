@@ -17,18 +17,26 @@ object WidgetRenderer {
 
     private val TIME_FORMATTER = DateTimeFormatter.ofPattern("HH:mm")
 
-    /** 上り各行のビューID（種別バッジ, 情報テキスト, 行コンテナ） */
+    /** 列車行のビューID群 */
+    private data class TrainRowIds(
+        val typeId: Int,
+        val timeId: Int,
+        val destId: Int,
+        val rowId: Int,
+    )
+
+    /** 上り各行のビューID（種別バッジ, 時刻, 行先, 行コンテナ） */
     private val UP_ROW_IDS = listOf(
-        Triple(R.id.train_up1_type, R.id.train_up1_info, R.id.row_train_up1),
-        Triple(R.id.train_up2_type, R.id.train_up2_info, R.id.row_train_up2),
-        Triple(R.id.train_up3_type, R.id.train_up3_info, R.id.row_train_up3),
+        TrainRowIds(R.id.train_up1_type, R.id.train_up1_time, R.id.train_up1_dest, R.id.row_train_up1),
+        TrainRowIds(R.id.train_up2_type, R.id.train_up2_time, R.id.train_up2_dest, R.id.row_train_up2),
+        TrainRowIds(R.id.train_up3_type, R.id.train_up3_time, R.id.train_up3_dest, R.id.row_train_up3),
     )
 
     /** 下り各行のビューID */
     private val DOWN_ROW_IDS = listOf(
-        Triple(R.id.train_down1_type, R.id.train_down1_info, R.id.row_train_down1),
-        Triple(R.id.train_down2_type, R.id.train_down2_info, R.id.row_train_down2),
-        Triple(R.id.train_down3_type, R.id.train_down3_info, R.id.row_train_down3),
+        TrainRowIds(R.id.train_down1_type, R.id.train_down1_time, R.id.train_down1_dest, R.id.row_train_down1),
+        TrainRowIds(R.id.train_down2_type, R.id.train_down2_time, R.id.train_down2_dest, R.id.row_train_down2),
+        TrainRowIds(R.id.train_down3_type, R.id.train_down3_time, R.id.train_down3_dest, R.id.row_train_down3),
     )
 
     /** バス野洲駅系各行のビューID（時刻, 経由, 行コンテナ） */
@@ -70,14 +78,17 @@ object WidgetRenderer {
             DisplayMode.TRAIN_ONLY -> {
                 views.setViewVisibility(R.id.section_train, View.VISIBLE)
                 views.setViewVisibility(R.id.text_line_name, View.VISIBLE)
+                views.setViewVisibility(R.id.section_divider, View.VISIBLE)
             }
             DisplayMode.TRAIN_AND_BUS -> {
                 views.setViewVisibility(R.id.section_train, View.VISIBLE)
                 views.setViewVisibility(R.id.text_line_name, View.GONE)
+                views.setViewVisibility(R.id.section_divider, View.VISIBLE)
             }
             DisplayMode.BUS_ONLY -> {
                 views.setViewVisibility(R.id.section_train, View.GONE)
                 views.setViewVisibility(R.id.text_line_name, View.GONE)
+                views.setViewVisibility(R.id.section_divider, View.GONE)
             }
         }
 
@@ -112,24 +123,23 @@ object WidgetRenderer {
     /**
      * 列車行を描画する
      * departures のサイズに応じて行の表示/非表示を制御
+     * 時刻と行先を別々のTextViewに描画する
      */
     private fun renderTrainRows(
         views: RemoteViews,
         departures: List<Departure>,
-        rowIds: List<Triple<Int, Int, Int>>
+        rowIds: List<TrainRowIds>
     ) {
         for ((index, ids) in rowIds.withIndex()) {
-            val (typeId, infoId, rowId) = ids
             if (index < departures.size) {
                 val dep = departures[index]
-                views.setViewVisibility(rowId, View.VISIBLE)
-                views.setTextViewText(typeId, dep.trainType.ifEmpty { "　" })
-                views.setInt(typeId, "setBackgroundResource", badgeDrawable(dep.trainType))
-                val time = dep.time.format(TIME_FORMATTER)
-                val dest = dep.destination.ifEmpty { "" }
-                views.setTextViewText(infoId, "$time $dest")
+                views.setViewVisibility(ids.rowId, View.VISIBLE)
+                views.setTextViewText(ids.typeId, dep.trainType.ifEmpty { "　" })
+                views.setInt(ids.typeId, "setBackgroundResource", badgeDrawable(dep.trainType))
+                views.setTextViewText(ids.timeId, dep.time.format(TIME_FORMATTER))
+                views.setTextViewText(ids.destId, dep.destination.ifEmpty { "" })
             } else {
-                views.setViewVisibility(rowId, View.INVISIBLE)
+                views.setViewVisibility(ids.rowId, View.INVISIBLE)
             }
         }
     }
