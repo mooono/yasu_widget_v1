@@ -144,6 +144,14 @@
                     android:textSize="14sp"
                     android:singleLine="true"
                     android:ellipsize="end" />
+
+                <TextView
+                    android:id="@+id/train_up1_minutes"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="#FFFFAA00"
+                    android:textSize="10sp"
+                    android:layout_marginStart="2dp" />
             </LinearLayout>
 
             <!-- 上り 2本目 -->
@@ -184,6 +192,14 @@
                     android:textSize="14sp"
                     android:singleLine="true"
                     android:ellipsize="end" />
+
+                <TextView
+                    android:id="@+id/train_up2_minutes"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="#FFFFAA00"
+                    android:textSize="10sp"
+                    android:layout_marginStart="2dp" />
             </LinearLayout>
 
             <!-- 上り 3本目 -->
@@ -223,6 +239,14 @@
                     android:textSize="14sp"
                     android:singleLine="true"
                     android:ellipsize="end" />
+
+                <TextView
+                    android:id="@+id/train_up3_minutes"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="#FFFFAA00"
+                    android:textSize="10sp"
+                    android:layout_marginStart="2dp" />
             </LinearLayout>
         </LinearLayout>
 
@@ -289,6 +313,14 @@
                     android:textSize="14sp"
                     android:singleLine="true"
                     android:ellipsize="end" />
+
+                <TextView
+                    android:id="@+id/train_down1_minutes"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="#FFFFAA00"
+                    android:textSize="10sp"
+                    android:layout_marginStart="2dp" />
             </LinearLayout>
 
             <!-- 下り 2本目 -->
@@ -329,6 +361,14 @@
                     android:textSize="14sp"
                     android:singleLine="true"
                     android:ellipsize="end" />
+
+                <TextView
+                    android:id="@+id/train_down2_minutes"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="#FFFFAA00"
+                    android:textSize="10sp"
+                    android:layout_marginStart="2dp" />
             </LinearLayout>
 
             <!-- 下り 3本目 -->
@@ -368,6 +408,14 @@
                     android:textSize="14sp"
                     android:singleLine="true"
                     android:ellipsize="end" />
+
+                <TextView
+                    android:id="@+id/train_down3_minutes"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="#FFFFAA00"
+                    android:textSize="10sp"
+                    android:layout_marginStart="2dp" />
             </LinearLayout>
         </LinearLayout>
     </LinearLayout>
@@ -475,6 +523,14 @@
                         android:textSize="14sp"
                         android:singleLine="true"
                         android:ellipsize="end" />
+
+                    <TextView
+                        android:id="@+id/bus_yasu1_minutes"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="#FFFFAA00"
+                        android:textSize="10sp"
+                        android:layout_marginStart="2dp" />
                 </LinearLayout>
 
                 <!-- 野洲駅系 2本目 -->
@@ -506,6 +562,14 @@
                         android:textSize="14sp"
                         android:singleLine="true"
                         android:ellipsize="end" />
+
+                    <TextView
+                        android:id="@+id/bus_yasu2_minutes"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="#FFFFAA00"
+                        android:textSize="10sp"
+                        android:layout_marginStart="2dp" />
                 </LinearLayout>
 
                 <!-- 野洲駅系 3本目 -->
@@ -536,6 +600,14 @@
                         android:textSize="14sp"
                         android:singleLine="true"
                         android:ellipsize="end" />
+
+                    <TextView
+                        android:id="@+id/bus_yasu3_minutes"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="#FFFFAA00"
+                        android:textSize="10sp"
+                        android:layout_marginStart="2dp" />
                 </LinearLayout>
             </LinearLayout>
 
@@ -594,6 +666,14 @@
                         android:textSize="14sp"
                         android:singleLine="true"
                         android:ellipsize="end" />
+
+                    <TextView
+                        android:id="@+id/bus_kita1_minutes"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="#FFFFAA00"
+                        android:textSize="10sp"
+                        android:layout_marginStart="2dp" />
                 </LinearLayout>
 
                 <!-- 北口系 2本目 -->
@@ -625,6 +705,14 @@
                         android:textSize="14sp"
                         android:singleLine="true"
                         android:ellipsize="end" />
+
+                    <TextView
+                        android:id="@+id/bus_kita2_minutes"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="#FFFFAA00"
+                        android:textSize="10sp"
+                        android:layout_marginStart="2dp" />
                 </LinearLayout>
 
                 <!-- 北口系 3本目 -->
@@ -655,6 +743,14 @@
                         android:textSize="14sp"
                         android:singleLine="true"
                         android:ellipsize="end" />
+
+                    <TextView
+                        android:id="@+id/bus_kita3_minutes"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="#FFFFAA00"
+                        android:textSize="10sp"
+                        android:layout_marginStart="2dp" />
                 </LinearLayout>
             </LinearLayout>
         </LinearLayout>
