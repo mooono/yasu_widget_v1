@@ -1,0 +1,94 @@
+name: Build Debug APK
+
+on:
+  pull_request:
+    types: [opened, synchronize, reopened]
+
+permissions:
+  contents: write
+  pull-requests: write
+  actions: read
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up JDK 21
+        uses: actions/setup-java@v4
+        with:
+          java-version: '21'
+          distribution: 'temurin'
+
+      - name: Setup Gradle
+        uses: gradle/actions/setup-gradle@v4
+
+      - name: Build debug APK
+        run: |
+          chmod +x gradlew
+          ./gradlew assembleDebug
+
+      - name: Rename APK
+        id: rename
+        run: |
+          apk_path=$(find app/build/outputs/apk/debug -name "*.apk" | head -1)
+          new_name="app-debug-pr${{ github.event.pull_request.number }}.apk"
+          cp "$apk_path" "$new_name"
+          echo "apk_name=$new_name" >> "$GITHUB_OUTPUT"
+
+      - name: Delete existing release
+        run: |
+          gh release delete "pr-${{ github.event.pull_request.number }}" --yes || true
+          git push origin --delete "pr-${{ github.event.pull_request.number }}" || true
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Create Release with APK
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: "pr-${{ github.event.pull_request.number }}"
+          name: "PR #${{ github.event.pull_request.number }} Debug APK"
+          body: "PR #${{ github.event.pull_request.number }} のデバッグAPKです。"
+          prerelease: true
+          files: ${{ steps.rename.outputs.apk_name }}
+
+      - name: Comment on PR
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const tag = `pr-${{ github.event.pull_request.number }}`;
+            const { data: release } = await github.rest.repos.getReleaseByTag({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              tag: tag,
+            });
+            const downloadUrl = release.assets.find(a => a.name.endsWith('.apk'))?.browser_download_url ?? release.html_url;
+            const body = `📦 デバッグAPKのビルドが完了しました。\n\n[こちらからAPKをダウンロード](${downloadUrl})\n\n> ※ ダウンロードしたAPKを実機にインストールして動作確認してください。\n> インストール時に競合エラーが出る場合は、既存のアプリをアンインストールしてから再インストールしてください。`;
+
+            const { data: comments } = await github.rest.issues.listComments({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: context.issue.number,
+            });
+            const botComment = comments.find(c =>
+              c.user.type === 'Bot' && c.body.includes('デバッグAPKのビルドが完了しました')
+            );
+
+            if (botComment) {
+              await github.rest.issues.updateComment({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                comment_id: botComment.id,
+                body: body,
+              });
+            } else {
+              await github.rest.issues.createComment({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                issue_number: context.issue.number,
+                body: body,
+              });
+            }
