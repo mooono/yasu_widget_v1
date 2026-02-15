@@ -136,7 +136,8 @@ class RefreshWidgetUseCase(
             train = trainSection,
             bus = busSection,
             lastUpdatedAtText = lastUpdatedAtText,
-            statusMessage = statusMessage
+            statusMessage = statusMessage,
+            currentTime = currentTime
         )
 
         // 8. 永続化
@@ -250,7 +251,8 @@ class RefreshWidgetUseCase(
             train = null,
             bus = null,
             lastUpdatedAtText = "更新 ${currentTime.format(TIME_DISPLAY_FORMATTER)}",
-            statusMessage = message
+            statusMessage = message,
+            currentTime = currentTime
         )
     }
 }
