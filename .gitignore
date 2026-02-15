@@ -36,6 +36,7 @@ local.properties
 # Signing files
 *.jks
 *.keystore
+!app/debug.keystore
 
 # Google Services
 google-services.json
