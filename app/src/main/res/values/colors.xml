@@ -7,4 +7,16 @@
     <color name="teal_700">#FF018786</color>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+
+    <!-- Widget Premium Theme Colors -->
+    <color name="widget_bg_start">#F0141828</color>
+    <color name="widget_bg_end">#F0121624</color>
+    <color name="widget_text_primary">#FFFFFFFF</color>
+    <color name="widget_text_secondary">#BBFFFFFF</color>
+    <color name="widget_text_muted">#66FFFFFF</color>
+    <color name="widget_accent_train">#FF90CAF9</color>
+    <color name="widget_accent_bus">#FFA5D6A7</color>
+    <color name="widget_countdown">#FFFFAB40</color>
+    <color name="widget_badge_rapid">#FFFF8C00</color>
+    <color name="widget_badge_special">#FF448AFF</color>
 </resources>
