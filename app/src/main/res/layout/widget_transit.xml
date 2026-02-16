@@ -117,7 +117,6 @@
                 android:id="@+id/text_train_section_label"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="電車"
                 android:textColor="#FF90CAF9"
                 android:textSize="11sp"
                 android:textStyle="bold" />

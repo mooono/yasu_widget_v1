@@ -122,19 +122,17 @@ class RefreshWidgetUseCase(
         }
 
         // 7. ヘッダー構築
-        val nearestLabel = if (currentLocation != null) {
+        val stationName = trainSection?.stationName ?: ""
+        val headerTitle = if (currentLocation != null) {
             val distToMurata = GeoUtils.distanceMeters(currentLocation, LocationConstants.MURATA_YASU)
             if (distToMurata <= LocationConstants.MURATA_RADIUS_METERS) {
                 "最寄:村田製作所"
             } else {
-                val stationName = trainSection?.stationName ?: "野洲"
-                "最寄:${stationName}駅"
+                "最寄:${stationName.ifEmpty { "野洲" }}駅"
             }
         } else {
-            val stationName = trainSection?.stationName ?: ""
             if (stationName.isNotEmpty()) "最寄:${stationName}駅" else ""
         }
-        val headerTitle = nearestLabel
 
         val lastUpdatedAtText = "更新 ${currentTime.format(TIME_DISPLAY_FORMATTER)}"
 
