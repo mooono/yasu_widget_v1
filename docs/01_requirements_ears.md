@@ -37,7 +37,7 @@
 - `YASU_RADIUS = 1000m`
 
 - **SYS-REQ-010（State-driven / While）**  
-  **現在地が** `MURATA_YASU` から `MURATA_RADIUS` 以内 **である間**、システムはWidgetに **バスのみ** を表示 **しなければならない**。  
+  **現在地が** `MURATA_YASU` から `MURATA_RADIUS` 以内 **である間**、システムはWidgetに **電車とバスの両方** を表示 **しなければならない**。  
   検証: Test
 
 - **SYS-REQ-011（State-driven / While）**  
@@ -93,7 +93,6 @@
   Widgetは、表示モードに応じて以下の情報を表示 **しなければならない**。  
   - TRAIN_ONLY: 電車（上り2/下り2）＋バス（次2）＋最終更新時刻  
   - TRAIN_AND_BUS: 電車（上り2/下り2）＋バス（次2）＋最終更新時刻  
-  - BUS_ONLY: バス（次2）＋最終更新時刻  
   検証: Inspection + Demonstration
 
 - **UI-REQ-003（Ubiquitous）**  
