@@ -122,11 +122,19 @@ class RefreshWidgetUseCase(
         }
 
         // 7. ヘッダー構築
-        val headerTitle = when (displayMode) {
-            DisplayMode.BUS_ONLY -> "村田付近"
-            DisplayMode.TRAIN_AND_BUS -> trainSection?.stationName ?: "野洲"
-            DisplayMode.TRAIN_ONLY -> trainSection?.stationName ?: ""
+        val nearestLabel = if (currentLocation != null) {
+            val distToMurata = GeoUtils.distanceMeters(currentLocation, LocationConstants.MURATA_YASU)
+            if (distToMurata <= LocationConstants.MURATA_RADIUS_METERS) {
+                "最寄:村田製作所"
+            } else {
+                val stationName = trainSection?.stationName ?: "野洲"
+                "最寄:${stationName}駅"
+            }
+        } else {
+            val stationName = trainSection?.stationName ?: ""
+            if (stationName.isNotEmpty()) "最寄:${stationName}駅" else ""
         }
+        val headerTitle = nearestLabel
 
         val lastUpdatedAtText = "更新 ${currentTime.format(TIME_DISPLAY_FORMATTER)}"
 
@@ -211,8 +219,8 @@ class RefreshWidgetUseCase(
         )
 
         val busStopName = when (direction) {
-            BusDirection.TO_YASU -> "村田製作所"
-            BusDirection.TO_MURATA -> "野洲駅"
+            BusDirection.TO_YASU -> "村田製作所発"
+            BusDirection.TO_MURATA -> "野洲駅発"
         }
         val yasuLabel = when (direction) {
             BusDirection.TO_YASU -> "野洲駅行"
