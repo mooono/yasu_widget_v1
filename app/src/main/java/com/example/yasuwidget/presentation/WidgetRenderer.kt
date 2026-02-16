@@ -106,6 +106,7 @@ object WidgetRenderer {
         // 電車セクション: 各行に1列車ずつ描画
         val train = state.train
         if (train != null) {
+            views.setTextViewText(R.id.text_train_section_label, "${train.stationName}駅発")
             views.setTextViewText(R.id.text_line_name, train.lineName)
             renderTrainRows(views, train.up, UP_ROW_IDS, state.currentTime)
             renderTrainRows(views, train.down, DOWN_ROW_IDS, state.currentTime)

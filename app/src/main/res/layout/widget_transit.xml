@@ -114,9 +114,9 @@
                 android:layout_marginEnd="4dp" />
 
             <TextView
+                android:id="@+id/text_train_section_label"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="電車"
                 android:textColor="#FF90CAF9"
                 android:textSize="11sp"
                 android:textStyle="bold" />
@@ -508,7 +508,7 @@
             android:layout_height="wrap_content"
             android:orientation="horizontal"
             android:gravity="center_vertical"
-            android:layout_marginBottom="2dp">
+            android:layout_marginBottom="4dp">
 
             <ImageView
                 android:layout_width="14dp"
@@ -521,27 +521,11 @@
                 android:id="@+id/text_bus_stop_name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="野洲駅"
+                android:text="野洲駅発"
                 android:textColor="#FFA5D6A7"
                 android:textSize="11sp"
                 android:textStyle="bold" />
-
-            <TextView
-                android:id="@+id/text_bus_line_name"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="6dp"
-                android:text="近江鉄道バス"
-                android:textColor="#77FFFFFF"
-                android:textSize="10sp" />
         </LinearLayout>
-
-        <!-- バスヘッダー区切り線 -->
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:background="@drawable/header_divider_premium"
-            android:layout_marginBottom="4dp" />
 
         <!-- 2カラム: 野洲駅系 / 北口系 -->
         <LinearLayout
