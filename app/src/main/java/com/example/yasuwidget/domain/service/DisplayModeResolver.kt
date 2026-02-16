@@ -8,7 +8,7 @@ import com.example.yasuwidget.domain.model.GeoPoint
  * 表示モード判定（SYS-REQ-010/011/012）
  *
  * 優先順位:
- * 1. 村田2km以内 → BUS_ONLY
+ * 1. 村田2km以内 → TRAIN_AND_BUS（バス方向は村田発）
  * 2. 野洲1km以内（かつ1に該当しない）→ TRAIN_AND_BUS
  * 3. その他 → TRAIN_ONLY
  */
@@ -19,7 +19,7 @@ object DisplayModeResolver {
         val distToYasu = GeoUtils.distanceMeters(currentLocation, LocationConstants.YASU_STATION)
 
         return when {
-            distToMurata <= LocationConstants.MURATA_RADIUS_METERS -> DisplayMode.BUS_ONLY
+            distToMurata <= LocationConstants.MURATA_RADIUS_METERS -> DisplayMode.TRAIN_AND_BUS
             distToYasu <= LocationConstants.YASU_RADIUS_METERS -> DisplayMode.TRAIN_AND_BUS
             else -> DisplayMode.TRAIN_ONLY
         }

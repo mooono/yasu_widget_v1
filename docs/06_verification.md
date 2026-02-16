@@ -1,7 +1,7 @@
 # 検証計画（v1）
 
 ## 受け入れ基準（Acceptance Criteria）
-- AC-001: 村田から2km以内で BUS_ONLY になる（SYS-REQ-010）
+- AC-001: 村田から2km以内で TRAIN_AND_BUS になる（SYS-REQ-010）
 - AC-002: 野洲駅から1km以内（村田2km外）で TRAIN_AND_BUS になる（SYS-REQ-011）
 - AC-003: 通常は TRAIN_ONLY で電車が上下3本ずつ＋バスが表示される（SYS-REQ-001/012）
 - AC-004: バス方向が村田半径に基づき正しく切り替わる（SYS-REQ-020/021）

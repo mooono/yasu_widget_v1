@@ -9,28 +9,28 @@ import org.junit.Test
 /**
  * 表示モード判定テスト（AC-001/002/003）
  *
- * AC-001: 村田から2km以内で BUS_ONLY になる（SYS-REQ-010）
+ * AC-001: 村田から2km以内で TRAIN_AND_BUS になる（SYS-REQ-010）
  * AC-002: 野洲駅から1km以内（村田2km外）で TRAIN_AND_BUS になる（SYS-REQ-011）
  * AC-003: 通常は TRAIN_ONLY で電車が上下2本ずつ表示される（SYS-REQ-012）
  */
 class DisplayModeResolverTest {
 
     @Test
-    fun `AC-001 村田2km以内ではBUS_ONLYになる`() {
+    fun `AC-001 村田2km以内ではTRAIN_AND_BUSになる`() {
         // 村田事業所の座標そのもの → 0m
         val atMurata = LocationConstants.MURATA_YASU
-        assertEquals(DisplayMode.BUS_ONLY, DisplayModeResolver.resolve(atMurata))
+        assertEquals(DisplayMode.TRAIN_AND_BUS, DisplayModeResolver.resolve(atMurata))
     }
 
     @Test
-    fun `AC-001 村田から1km地点ではBUS_ONLYになる`() {
+    fun `AC-001 村田から1km地点ではTRAIN_AND_BUSになる`() {
         // 村田の北方約1km
-        val nearMurata = GeoPoint(35.0570, 136.0330)
+        val nearMurata = GeoPoint(35.0870, 136.0657)
         val distance = GeoUtils.distanceMeters(nearMurata, LocationConstants.MURATA_YASU)
         assert(distance <= LocationConstants.MURATA_RADIUS_METERS) {
             "テスト前提: 距離 $distance m が村田半径以内であること"
         }
-        assertEquals(DisplayMode.BUS_ONLY, DisplayModeResolver.resolve(nearMurata))
+        assertEquals(DisplayMode.TRAIN_AND_BUS, DisplayModeResolver.resolve(nearMurata))
     }
 
     @Test
@@ -55,14 +55,14 @@ class DisplayModeResolverTest {
     @Test
     fun `村田半径境界付近の判定`() {
         // 村田からちょうど2000mの位置（境界上）
-        // 2000m以内なのでBUS_ONLYのはず
+        // 2000m以内なのでTRAIN_AND_BUSのはず
         val murataCenter = LocationConstants.MURATA_YASU
         // 北方向に約2000m移動（緯度約0.018度）
         val boundary = GeoPoint(murataCenter.latitude + 0.018, murataCenter.longitude)
         val dist = GeoUtils.distanceMeters(boundary, murataCenter)
         // 境界付近のためモード確認
         val expected = if (dist <= LocationConstants.MURATA_RADIUS_METERS) {
-            DisplayMode.BUS_ONLY
+            DisplayMode.TRAIN_AND_BUS
         } else {
             // 野洲駅圏内かどうかで判定
             val distToYasu = GeoUtils.distanceMeters(boundary, LocationConstants.YASU_STATION)
