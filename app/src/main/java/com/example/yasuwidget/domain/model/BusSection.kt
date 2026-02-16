@@ -1,15 +1,20 @@
 package com.example.yasuwidget.domain.model
 
 /**
- * Widget上のバス表示セクション（2カラム: 野洲駅系 / 北口系）
+ * Widget上のバス表示セクション（1カラム: 発時間順に全便を表示）
  *
- * - 野洲駅発モード: 左=野洲駅発, 右=北口発
- * - 村田発モード:   左=野洲駅行, 右=北口行
+ * - 村田発モード: 行き先（野洲駅行 / 野洲駅北口行）を表示
+ * - 野洲駅発モード: 発車場所（野洲駅発 / 野洲駅北口発）を表示
  */
 data class BusSection(
     val busStopName: String,
-    val yasuLabel: String,
-    val kitaguchiLabel: String,
-    val yasuDepartures: List<Departure>,
-    val kitaguchiDepartures: List<Departure>
+    val departures: List<BusDeparture>
+)
+
+/**
+ * バス1便の表示情報（発車情報 + 表示用ラベル）
+ */
+data class BusDeparture(
+    val departure: Departure,
+    val label: String
 )

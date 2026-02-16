@@ -206,43 +206,39 @@ class RefreshWidgetUseCase(
             BusDirection.TO_MURATA -> busTimetable.toMurata
         }
 
-        // 野洲駅系と北口系に分割
-        val yasuTimetable = DirectionTimetable(
-            weekday = directionTimetable.weekday.filter { !it.destination.contains("北口") },
-            holiday = directionTimetable.holiday.filter { !it.destination.contains("北口") }
-        )
-        val kitaguchiTimetable = DirectionTimetable(
-            weekday = directionTimetable.weekday.filter { it.destination.contains("北口") },
-            holiday = directionTimetable.holiday.filter { it.destination.contains("北口") }
-        )
-
         val busStopName = when (direction) {
             BusDirection.TO_YASU -> "村田製作所発"
             BusDirection.TO_MURATA -> "野洲駅発"
         }
-        val yasuLabel = when (direction) {
-            BusDirection.TO_YASU -> "野洲駅行"
-            BusDirection.TO_MURATA -> "野洲駅発"
-        }
-        val kitaguchiLabel = when (direction) {
-            BusDirection.TO_YASU -> "北口行"
-            BusDirection.TO_MURATA -> "北口発"
-        }
 
-        val yasuDepartures = NextDeparturesSelector.select(
-            yasuTimetable, serviceDay, currentTime, BUS_COUNT
+        // 全便を発時間順に統合し、行き先/発車場所ラベルを付与
+        val allDepartures = NextDeparturesSelector.select(
+            directionTimetable, serviceDay, currentTime, BUS_COUNT
         )
-        val kitaguchiDepartures = NextDeparturesSelector.select(
-            kitaguchiTimetable, serviceDay, currentTime, BUS_COUNT
-        )
+        val busDepartures = allDepartures.map { dep ->
+            BusDeparture(
+                departure = dep,
+                label = toBusLabel(dep, direction)
+            )
+        }
 
         return BusSection(
             busStopName = busStopName,
-            yasuLabel = yasuLabel,
-            kitaguchiLabel = kitaguchiLabel,
-            yasuDepartures = yasuDepartures,
-            kitaguchiDepartures = kitaguchiDepartures
+            departures = busDepartures
         )
+    }
+
+    /**
+     * バス便の表示ラベルを生成する
+     * TO_YASU（村田発）: 行き先を表示（野洲駅行 / 野洲駅北口行）
+     * TO_MURATA（野洲駅発）: 発車場所を表示（野洲駅発 / 野洲駅北口発）
+     */
+    internal fun toBusLabel(dep: Departure, direction: BusDirection): String {
+        val isKitaguchi = dep.destination.contains("北口")
+        return when (direction) {
+            BusDirection.TO_YASU -> if (isKitaguchi) "野洲駅北口行" else "野洲駅行"
+            BusDirection.TO_MURATA -> if (isKitaguchi) "野洲駅北口発" else "野洲駅発"
+        }
     }
 
     private fun buildErrorState(
