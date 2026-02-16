@@ -11,8 +11,8 @@ object LocationConstants {
     /** 野洲駅 */
     val YASU_STATION = GeoPoint(35.0654, 136.0253)
 
-    /** 村田製作所 野洲事業所 */
-    val MURATA_YASU = GeoPoint(35.0480, 136.0330)
+    /** 村田製作所 野洲事業所（滋賀県野洲市大篠原2288） */
+    val MURATA_YASU = GeoPoint(35.0780, 136.0657)
 
     /** 村田判定半径（メートル）SYS-REQ-010 */
     const val MURATA_RADIUS_METERS = 2000.0

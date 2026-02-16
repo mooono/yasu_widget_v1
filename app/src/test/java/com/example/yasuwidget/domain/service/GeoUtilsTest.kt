@@ -28,11 +28,11 @@ class GeoUtilsTest {
     }
 
     @Test
-    fun `野洲駅と村田間の距離が約2km`() {
+    fun `野洲駅と村田間の距離が約4km`() {
         val yasu = GeoPoint(35.0654, 136.0253)
-        val murata = GeoPoint(35.0480, 136.0330)
+        val murata = GeoPoint(35.0780, 136.0657)
         val distance = GeoUtils.distanceMeters(yasu, murata)
-        // 約2km（1.5-2.5km）
-        assertTrue("距離: ${distance}m", distance in 1500.0..2500.0)
+        // 約4km（3.5-4.5km）
+        assertTrue("距離: ${distance}m", distance in 3500.0..4500.0)
     }
 }

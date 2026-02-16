@@ -25,7 +25,7 @@ class BusDirectionResolverTest {
     @Test
     fun `AC-004 村田から1km地点では村田発(TO_YASU)になる`() {
         // 村田の北方約1km
-        val nearMurata = GeoPoint(35.0570, 136.0330)
+        val nearMurata = GeoPoint(35.0870, 136.0657)
         val distance = GeoUtils.distanceMeters(nearMurata, LocationConstants.MURATA_YASU)
         assert(distance <= LocationConstants.MURATA_RADIUS_METERS) {
             "テスト前提: 距離 $distance m が村田半径以内であること"

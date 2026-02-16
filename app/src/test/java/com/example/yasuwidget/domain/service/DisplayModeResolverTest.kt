@@ -25,7 +25,7 @@ class DisplayModeResolverTest {
     @Test
     fun `AC-001 村田から1km地点ではBUS_ONLYになる`() {
         // 村田の北方約1km
-        val nearMurata = GeoPoint(35.0570, 136.0330)
+        val nearMurata = GeoPoint(35.0870, 136.0657)
         val distance = GeoUtils.distanceMeters(nearMurata, LocationConstants.MURATA_YASU)
         assert(distance <= LocationConstants.MURATA_RADIUS_METERS) {
             "テスト前提: 距離 $distance m が村田半径以内であること"
